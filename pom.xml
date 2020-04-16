@@ -4,13 +4,21 @@
     <artifactId>rd-epam-java-2020-supplier</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1</version>
+
+    <name>supplier-root</name>
+
     <modules>
         <module>ms-supplier-api</module>
         <module>ms-supplier-db</module>
         <module>ms-supplier-impl</module>
     </modules>
 
-    <name>supplier-root</name>
+    <properties>
+        <maven-compiler-plugin.ver>3.8.1</maven-compiler-plugin.ver>
+        <maven-site-plugin.ver>3.9.0</maven-site-plugin.ver>
+        <lombok.ver>1.18.12</lombok.ver>
+        <logback-classic.ver>1.2.3</logback-classic.ver>
+    </properties>
 
     <build>
         <plugins>
@@ -34,20 +42,13 @@
         </plugins>
     </build>
 
-    <properties>
-        <maven-compiler-plugin.ver>3.8.1</maven-compiler-plugin.ver>
-        <maven-site-plugin.ver>3.9.0</maven-site-plugin.ver>
-        <lombok.ver>1.18.12</lombok.ver>
-        <logback-classic.ver>1.2.3</logback-classic.ver>
-    </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
-                <version>${lombok.ver}</version>
                 <scope>provided</scope>
+                <version>${lombok.ver}</version>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
@@ -56,16 +57,4 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
-    </dependencies>
 </project>
