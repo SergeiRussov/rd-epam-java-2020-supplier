@@ -1,9 +1,8 @@
-import java.util.logging.Logger;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class SupplierApplication {
-
     public static void main(String[] args) {
-        Logger logger = Logger.getLogger(String.valueOf(SupplierApplication.class));
-        logger.info("Hello");
+       // log.info("Hello world!");
     }
 }
