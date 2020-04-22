@@ -7,9 +7,9 @@ insert into supplier.items (id, name, description, price, creation_date, update_
 
 insert into supplier.orders (id, customer, status, cost, creation_date, update_date)
 	values ('a0eebc999c0b4ef8bb6d6bb9bd380a44', 'customer 1', 'order status 1', 10000, timestamp '2020-01-01 12:00:00', NULL);
-insert into supplier.orders (id, payment_id, customer, status, cost, creation_date, update_date)
+insert into supplier.orders (id, customer, status, cost, creation_date, update_date)
 	values ('a0eebc999c0b4ef8bb6d6bb9bd380a66', 'customer 2', 'order status 2', 15000, timestamp '2020-01-01 12:00:00', NULL);
-insert into supplier.orders (id, payment_id, customer, status, cost, creation_date, update_date)
+insert into supplier.orders (id, customer, status, cost, creation_date, update_date)
 	values ('a0eebc999c0b4ef8bb6d6bb9bd380a88', 'customer 3', 'order status 3', 20000, timestamp '2020-01-01 12:00:00', NULL);
 
 insert into supplier.production (id, item_id, order_id, production_date, creation_date, update_date)
