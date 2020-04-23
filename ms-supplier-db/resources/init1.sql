@@ -3,11 +3,11 @@ SET client_encoding = 'UTF-8';
 
 
 insert into supplier.items (id, name, description, price, creation_date, update_date) 
-	values ('307e627c-8560-11ea-bc55-0242ac130003', '�����', '����� ������������', 15, timestamptz '2020-01-27 18:14:10', NULL);
+	values ('307e627c-8560-11ea-bc55-0242ac130003', 'GAYKA', 'GAYKA STROITELNAY', 15, timestamptz '2020-01-27 18:14:10', NULL);
 insert into supplier.items (id, name, description, price, creation_date, update_date) 
-	values ('307e64b6-8560-11ea-bc55-0242ac130003', '�����', '����� ������������', 200, timestamptz '2020-01-27 18:14:10', NULL);
+	values ('307e64b6-8560-11ea-bc55-0242ac130003', 'GVOZD', 'GVOZG STROITELNIY', 200, timestamptz '2020-01-27 18:14:10', NULL);
 insert into supplier.items (id, name, description, price, creation_date, update_date) 
-	values ('307e65a6-8560-11ea-bc55-0242ac130003', '������', '������ ������������', 30, timestamptz '2020-01-27 18:14:10', NULL);
+	values ('307e65a6-8560-11ea-bc55-0242ac130003', 'SHURUP', 'SHURUP STROITELNIY', 30, timestamptz '2020-01-27 18:14:10', NULL);
 
 insert into supplier.production (id, item_id, order_id, production_date, creation_date, update_date) 
 	values ('307e6b3c-8560-11ea-bc55-0242ac130003', '307e627c-8560-11ea-bc55-0242ac130003', '307e6704-8560-11ea-bc55-0242ac130003', timestamptz '2020-01-27 18:14:10', timestamptz '2020-01-27 18:14:10', NULL);
@@ -17,11 +17,11 @@ insert into supplier.production (id, item_id, order_id, production_date, creatio
 	values ('307e70a0-8560-11ea-bc55-0242ac130003', '307e65a6-8560-11ea-bc55-0242ac130003', '307e6a74-8560-11ea-bc55-0242ac130003', timestamptz '2020-01-27 18:14:10', timestamptz '2020-01-27 18:14:10', NULL);
 
 insert into supplier.orders (id, customer, status, cost, creation_date, update_date) 
-	values ('307e6704-8560-11ea-bc55-0242ac130003',  '���������', '1', 10000, timestamptz '2020-01-27 18:14:10', NULL);
+	values ('307e6704-8560-11ea-bc55-0242ac130003',  'STROITEL', '1', 10000, timestamptz '2020-01-27 18:14:10', NULL);
 insert into supplier.orders (id, customer, status, cost, creation_date, update_date) 
-	values ('307e6998-8560-11ea-bc55-0242ac130003', '���������', '1', 15000, timestamptz '2020-01-27 18:14:10', NULL);
+	values ('307e6998-8560-11ea-bc55-0242ac130003', 'RABOCHIY', '1', 15000, timestamptz '2020-01-27 18:14:10', NULL);
 insert into supplier.orders (id, customer, status, cost, creation_date, update_date) 
-	values ('307e6a74-8560-11ea-bc55-0242ac130003', '������', '1', 20000, timestamptz '2020-01-27 18:14:10', NULL);
+	values ('307e6a74-8560-11ea-bc55-0242ac130003', 'PRORAB', '1', 20000, timestamptz '2020-01-27 18:14:10', NULL);
 
 
 insert into supplier.payment (id, order_id, ogrn, kpp, inn, r_s, cost, payment_external_id, payment_callback_url, status, output_id, store_calling_url, creation_date, update_date) 
