@@ -2,9 +2,10 @@ SET client_encoding = 'UTF-8';
 SET check_function_bodies = false;
 SET client_min_messages = warning;
 
-CREATE SCHEMA IF NOT exists supplier;
+drop schema if exists supplier cascade;
+CREATE SCHEMA supplier
 
- CREATE TABLE IF NOT EXISTS supplier.items ( 
+  CREATE TABLE items ( 
   id uuid not null,
   name varchar not null,
   description varchar not null,
@@ -12,21 +13,9 @@ CREATE SCHEMA IF NOT exists supplier;
   creation_date timestamptz not null,
   update_date timestamptz,
   PRIMARY KEY (id)
-) WITHOUT OIDS;
+) 
 
-CREATE TABLE IF NOT EXISTS supplier.production ( 
-  id uuid not null,
-  item_id uuid not null,
-  order_id uuid not null,
-  production_date timestamptz not null,
-  creation_date timestamptz not null,
-  update_date timestamptz,
-  PRIMARY KEY (id)
-) WITHOUT OIDS;
-
-ALTER TABLE supplier.production ADD CONSTRAINT Item_id_product_foreign FOREIGN KEY (item_id) REFERENCES supplier.items (id) ;
-
-CREATE TABLE IF NOT EXISTS supplier.orders ( 
+   CREATE TABLE orders ( 
   id uuid not null,
   customer varchar not null,
   status varchar not null,
@@ -34,12 +23,22 @@ CREATE TABLE IF NOT EXISTS supplier.orders (
   creation_date timestamptz not null,
   update_date timestamptz,
   PRIMARY KEY (id)
-) WITHOUT OIDS;
+ 
+) 
 
-ALTER TABLE supplier.orders ADD CONSTRAINT orders_id_foreign FOREIGN KEY (id) REFERENCES supplier.production (order_id) ;
-ALTER TABLE supplier.orders ADD CONSTRAINT orders_id_foreign FOREIGN KEY (id) REFERENCES supplier.payment (order_id) ;
+  CREATE TABLE production ( 
+  id uuid not null,
+  item_id uuid not null,
+  order_id uuid not null,
+  production_date timestamptz not null,
+  creation_date timestamptz not null,
+  update_date timestamptz,
+  PRIMARY KEY (id),
+  foreign key (item_id) references items (id),
+  foreign key (order_id) references orders (id)
+)
 
-CREATE TABLE IF NOT EXISTS supplier.payment ( 
+ CREATE TABLE payment ( 
   id uuid not null,
   order_id uuid not null,
   ogrn varchar not null,
@@ -54,11 +53,11 @@ CREATE TABLE IF NOT EXISTS supplier.payment (
   store_calling_url varchar not null,
   creation_date timestamptz not null,
   update_date timestamptz ,
-  PRIMARY KEY (id)
-) WITHOUT OIDS;
-
-CREATE LOGIN <supplier> WITH PASSWORD = '<supplier>';
-    
+  PRIMARY KEY (id),
+  foreign key (order_id) references orders (id)
+);
+drop user if exists supplier;
+create user supplier with password 'supplier';
 grant SELECT, INSERT, UPDATE, DELETE on ALL tables in schema supplier TO supplier;
 grant SELECT, USAGE on ALL sequences in schema supplier TO supplier;
 grant SELECT, USAGE on ALL FUNCTIONS in schema supplier TO supplier;
