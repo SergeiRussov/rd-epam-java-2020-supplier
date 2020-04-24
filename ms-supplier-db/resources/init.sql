@@ -1,3 +1,4 @@
+DROP SCHEMA IF EXISTS supplier CASCADE;
 CREATE SCHEMA IF NOT exists supplier;
  CREATE TABLE IF NOT EXISTS supplier.items ( 
   id uuid not null,
@@ -7,21 +8,9 @@ CREATE SCHEMA IF NOT exists supplier;
   creation_date timestamptz not null,
   update_date timestamptz,
   PRIMARY KEY (id)
-) WITHOUT OIDS;
+);
 
-CREATE TABLE IF NOT EXISTS supplier.production ( 
-  id uuid not null,
-  item_id uuid not null,
-  order_id uuid not null,
-  production_date timestamptz not null,
-  creation_date timestamptz not null,
-  update_date timestamptz,
-  PRIMARY KEY (id)
-) WITHOUT OIDS;
-
-ALTER TABLE supplier.production ADD CONSTRAINT production_item_id_foreign FOREIGN KEY (item_id) REFERENCES supplier.items (id) ;
-
-CREATE TABLE IF NOT EXISTS supplier.orders ( 
+CREATE TABLE IF NOT EXISTS supplier.orders (
   id uuid not null,
   customer varchar not null,
   status varchar not null,
@@ -29,11 +18,20 @@ CREATE TABLE IF NOT EXISTS supplier.orders (
   creation_date timestamptz not null,
   update_date timestamptz,
   PRIMARY KEY (id)
-) WITHOUT OIDS;
+);
 
-ALTER TABLE supplier.production ADD CONSTRAINT production_order_id_foreign FOREIGN KEY (order_id) REFERENCES supplier.orders (id) ;
+CREATE TABLE IF NOT EXISTS supplier.production (
+  id uuid not null,
+  item_id uuid not null,
+  order_id uuid not null,
+  creation_date timestamptz not null,
+  update_date timestamptz,
+  PRIMARY KEY (id),
+  FOREIGN KEY (item_id) REFERENCES supplier.items (id),
+  FOREIGN KEY (order_id) REFERENCES supplier.orders (id)
+);
 
-CREATE TABLE IF NOT EXISTS supplier.payments ( 
+CREATE TABLE IF NOT EXISTS supplier.payments (
   id uuid not null,
   order_id uuid not null,
   ogrn varchar not null,
@@ -48,11 +46,11 @@ CREATE TABLE IF NOT EXISTS supplier.payments (
   store_calling_url varchar not null,
   creation_date timestamptz not null,
   update_date timestamptz,
-  PRIMARY KEY (id)
-) WITHOUT OIDS;
+  PRIMARY KEY (id),
+  FOREIGN KEY (order_id) REFERENCES supplier.orders (id)
+);
 
-ALTER TABLE supplier.payments ADD CONSTRAINT payments_order_id_foreign FOREIGN KEY (order_id) REFERENCES supplier.orders (id) ;
-
+drop ROLE IF EXISTS supplier;
 create ROLE supplier PASSWORD 'supplier';
 ALTER ROLE supplier LOGIN;
 GRANT select,  insert, update, delete, truncate

@@ -12,12 +12,12 @@ insert into supplier.orders (id, customer, status, cost, creation_date, update_d
 insert into supplier.orders (id, customer, status, cost, creation_date, update_date)
 	values ('a0eebc999c0b4ef8bb6d6bb9bd380a88', 'customer 3', 'order status 3', 20000, timestamp '2020-01-01 12:00:00', NULL);
 
-insert into supplier.production (id, item_id, order_id, production_date, creation_date, update_date)
-	values ('a1eebc999c0b4ef8bb6d6bb9bd380a44', 'a0eebc999c0b4ef8bb6d6bb9bd380a11', 'a0eebc999c0b4ef8bb6d6bb9bd380a44', timestamp '2020-01-01 12:00:00', timestamp '2020-01-01 12:00:00', NULL);
-insert into supplier.production (id, item_id, order_id, production_date, creation_date, update_date)
-	values ('a1eebc999c0b4ef8bb6d6bb9bd380a55', 'a0eebc999c0b4ef8bb6d6bb9bd380a22', 'a0eebc999c0b4ef8bb6d6bb9bd380a66', timestamp '2020-01-01 12:00:00', timestamp '2020-01-01 12:00:00', NULL);
-insert into supplier.production (id, item_id, order_id, production_date, creation_date, update_date)
-	values ('a1eebc999c0b4ef8bb6d6bb9bd380a66', 'a0eebc999c0b4ef8bb6d6bb9bd380a33', 'a0eebc999c0b4ef8bb6d6bb9bd380a88', timestamp '2020-01-01 12:00:00', timestamp '2020-01-01 12:00:00', NULL);
+insert into supplier.production (id, item_id, order_id, creation_date, update_date)
+	values ('a1eebc999c0b4ef8bb6d6bb9bd380a44', 'a0eebc999c0b4ef8bb6d6bb9bd380a11', 'a0eebc999c0b4ef8bb6d6bb9bd380a44', timestamp '2020-01-01 12:00:00', NULL);
+insert into supplier.production (id, item_id, order_id, creation_date, update_date)
+	values ('a1eebc999c0b4ef8bb6d6bb9bd380a55', 'a0eebc999c0b4ef8bb6d6bb9bd380a22', 'a0eebc999c0b4ef8bb6d6bb9bd380a66', timestamp '2020-01-01 12:00:00', NULL);
+insert into supplier.production (id, item_id, order_id, creation_date, update_date)
+	values ('a1eebc999c0b4ef8bb6d6bb9bd380a66', 'a0eebc999c0b4ef8bb6d6bb9bd380a33', 'a0eebc999c0b4ef8bb6d6bb9bd380a88', timestamp '2020-01-01 12:00:00', NULL);
 
 insert into supplier.payments (id, order_id, ogrn, kpp, inn, r_s, cost, payment_external_id, payment_callback_url, status, output_id, store_calling_url, creation_date, update_date)
 	values ('a2eebc999c0b4ef8bb6d6bb9bd380a44', 'a0eebc999c0b4ef8bb6d6bb9bd380a44', 'ogrn 1', 'kpp 1', 'inn 1', 'rs 1', 10000, 'a3eebc999c0b4ef8bb6d6bb9bd380a44',
