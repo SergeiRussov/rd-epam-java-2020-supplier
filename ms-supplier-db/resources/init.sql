@@ -10,17 +10,7 @@ create schema supplier
         creation_date timestamptz not null default current_timestamp,
         update_date   timestamptz,
         primary key (id)
-    ) without oids
-
-    create table production
-    (
-        id            uuid                                  not null,
-        item_id       uuid                                  not null,
-        order_id      uuid                                  not null,
-        creation_date timestamptz default current_timestamp not null,
-        update_date   timestamptz,
-        primary key (id)
-    ) without oids
+    )
 
     create table orders
     (
@@ -31,7 +21,7 @@ create schema supplier
         creation_date timestamptz default current_timestamp not null,
         update_date   timestamptz,
         primary key (id)
-    ) without oids
+    )
 
     create table payments
     (
@@ -49,31 +39,18 @@ create schema supplier
         store_calling_url    varchar     not null,
         creation_date        timestamptz not null default current_timestamp,
         update_date          timestamptz,
-        primary key (id)
-    ) without oids;
+        primary key (id),
+        foreign key (order_id) references orders (id)
+    )
 
-alter table supplier.production
-    add foreign key (item_id)
-        references supplier.items (id);
-
-alter table supplier.production
-    add foreign key (order_id)
-        references supplier.orders (id);
-
-alter table supplier.payments
-    add foreign key (order_id)
-        references supplier.orders (id);
-
-drop user if exists supplier;
-create user supplier with password 'supplier';
-grant select, insert, update, delete, truncate
-    on all tables in schema supplier
-    to supplier;
-
-grant usage
-    on all sequences in schema supplier
-    to supplier;
-
-grant execute
-    on all functions in schema supplier
-    to supplier;
+    create table production
+    (
+        id            uuid                                  not null,
+        item_id       uuid                                  not null,
+        order_id      uuid                                  not null,
+        creation_date timestamptz default current_timestamp not null,
+        update_date   timestamptz,
+        primary key (id),
+        foreign key (item_id) references items (id),
+        foreign key (order_id) references orders (id)
+    );
