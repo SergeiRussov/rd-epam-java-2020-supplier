@@ -54,3 +54,18 @@ create schema supplier
         foreign key (item_id) references items (id),
         foreign key (order_id) references orders (id)
     );
+
+drop user if exists supplier;
+create user supplier with password 'supplier';
+
+grant select, insert, update, delete, truncate
+    on all tables in schema supplier
+    to supplier;
+
+grant usage
+    on all sequences in schema supplier
+    to supplier;
+
+grant execute
+    on all functions in schema supplier
+    to supplier;
