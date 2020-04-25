@@ -5,17 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <!-- It seems liquibase doesn't cover that operates -->
-    <changeSet id="1" author="Aminev Ramil">
-        <sql dbms="postgresql" endDelimiter=";">
-            drop schema if exists supplier cascade
-        </sql>
-        <sql dbms="postgresql" endDelimiter=";">
-            create schema supplier
-        </sql>
-    </changeSet>
-
-    <changeSet id="2"
+    <changeSet id="1"
                author="Aminev Ramil">
         <createTable tableName="items"
                      schemaName="supplier">
@@ -48,7 +38,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="3"
+    <changeSet id="2"
                author="Aminev Ramil">
         <createTable tableName="orders"
                      schemaName="supplier">
@@ -81,7 +71,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="4"
+    <changeSet id="3"
                author="Aminev Ramil">
         <createTable tableName="payments"
                      schemaName="supplier">
@@ -146,7 +136,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="5"
+    <changeSet id="4"
                author="Aminev Ramil">
         <createTable tableName="production">
             <column name="id"
@@ -174,8 +164,7 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="6" author="Aminev Ramil">
-
+    <changeSet id="5" author="Aminev Ramil">
         <addForeignKeyConstraint baseColumnNames="order_id"
                                  baseTableName="payments"
                                  constraintName="payments_order_id_fkey"

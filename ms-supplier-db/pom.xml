@@ -12,22 +12,23 @@
     <artifactId>ms-supplier-db</artifactId>
 
     <build>
+        <resources>
+            <resource>
+                <directory>resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>3.8.9</version>
                 <configuration>
-                    <outputFileEncoding>${fileEnc}</outputFileEncoding>
-                    <driver>org.postgresql.Driver</driver>
-                    <url> jdbc:postgresql://${liquibase.host}:${liquibase.port}/${liquibase.db}</url>
+                    <propertyFile>resources/liquibase.properties</propertyFile>
                     <!-- Нерабочий вариант URL
                     <url> jdbc:postgresql://${liquibase.host}:${liquibase.port}/${liquibase.db}?currentSchema=${liquibase.schema}</url>
                     -->
-                    <username>supplier</username>
-                    <password>supplier</password>
-                    <changeLogFile>${liquibase.changelogfile}</changeLogFile>
-                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+
                 </configuration>
                 <executions>
                     <execution>

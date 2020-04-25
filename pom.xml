@@ -29,7 +29,7 @@
         <liquibase.password>supplier</liquibase.password>
         <liquibase.host>localhost</liquibase.host>
         <liquibase.port>5432</liquibase.port>
-        <liquibase.db>supplier</liquibase.db>
+        <liquibase.db>courses</liquibase.db>
         <liquibase.schema>supplier</liquibase.schema>
         <liquibase.changelogfile>resources/db.changelog-master.xml</liquibase.changelogfile>
         <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
@@ -52,6 +52,14 @@
                 <version>${maven-site-plugin.ver}</version>
                 <configuration>
                     <outputEncoding>${fileEnc}</outputEncoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
                 </configuration>
             </plugin>
         </plugins>
