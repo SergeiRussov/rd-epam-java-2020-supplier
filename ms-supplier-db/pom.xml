@@ -10,4 +10,45 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ms-supplier-db</artifactId>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.8.9</version>
+                <configuration>
+                    <outputFileEncoding>${fileEnc}</outputFileEncoding>
+                    <driver>org.postgresql.Driver</driver>
+                    <url> jdbc:postgresql://${liquibase.host}:${liquibase.port}/${liquibase.db}</url>
+                    <!-- Нерабочий вариант URL
+                    <url> jdbc:postgresql://${liquibase.host}:${liquibase.port}/${liquibase.db}?currentSchema=${liquibase.schema}</url>
+                    -->
+                    <username>supplier</username>
+                    <password>supplier</password>
+                    <changeLogFile>${liquibase.changelogfile}</changeLogFile>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>update</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+    </dependencies>
 </project>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <!-- It seems liquibase doesn't cover that operates -->
+    <changeSet id="1" author="Aminev Ramil">
+        <sql dbms="postgresql" endDelimiter=";">
+            drop schema if exists supplier cascade
+        </sql>
+        <sql dbms="postgresql" endDelimiter=";">
+            create schema supplier
+        </sql>
+    </changeSet>
+
+    <changeSet id="2"
+               author="Aminev Ramil">
+        <createTable tableName="items"
+                     schemaName="supplier">
+            <column name="id"
+                    type="uuid">
+                <constraints primaryKey="true"
+                             nullable="false"/>
+            </column>
+            <column name="name"
+                    type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description"
+                    type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price"
+                    type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date"
+                    type="timestamptz"
+                    defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date"
+                    type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="3"
+               author="Aminev Ramil">
+        <createTable tableName="orders"
+                     schemaName="supplier">
+            <column name="id"
+                    type="uuid">
+                <constraints primaryKey="true"
+                             nullable="false"/>
+            </column>
+            <column name="customer"
+                    type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status"
+                    type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cost"
+                    type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date"
+                    type="timestamptz"
+                    defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date"
+                    type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="4"
+               author="Aminev Ramil">
+        <createTable tableName="payments"
+                     schemaName="supplier">
+            <column name="id"
+                    type="uuid">
+                <constraints primaryKey="true"
+                             nullable="false"/>
+            </column>
+            <column name="order_id"
+                    type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ogrn"
+                    type="varchar(13)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kpp"
+                    type="varchar(9)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="inn"
+                    type="varchar(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="r_s"
+                    type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cost"
+                    type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_external_id"
+                    type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_callback_url"
+                    type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status"
+                    type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="output_id"
+                    type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="store_calling_url"
+                    type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date"
+                    type="timestamptz"
+                    defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date"
+                    type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="5"
+               author="Aminev Ramil">
+        <createTable tableName="production">
+            <column name="id"
+                    type="uuid">
+                <constraints primaryKey="true"
+                             nullable="false"/>
+            </column>
+            <column name="item_id"
+                    type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id"
+                    type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date"
+                    type="timestamptz"
+                    defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date"
+                    type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="6" author="Aminev Ramil">
+
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="payments"
+                                 constraintName="payments_order_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="orders"/>
+        <addForeignKeyConstraint baseColumnNames="item_id"
+                                 baseTableName="production"
+                                 constraintName="production_item_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="items"/>
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="production"
+                                 constraintName="production_order_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="orders"/>
+    </changeSet>
+</databaseChangeLog>
+
