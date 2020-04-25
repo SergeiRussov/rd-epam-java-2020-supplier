@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+
+<changeSet author="Horugeva" id="production_key" >
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="${prefix}_production"
+                                 constraintName="fk_production_order"
+                                 referencedColumnNames="id"
+                                 referencedTableName="${prefix}_orders"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="item_id"
+                                 baseTableName="${prefix}_production"
+                                 constraintName="fk_payments_item"
+                                 referencedColumnNames="id"
+                                 referencedTableName="${prefix}_items"
+                                 validate="true"/>
+    </changeSet>
+</databaseChangeLog>

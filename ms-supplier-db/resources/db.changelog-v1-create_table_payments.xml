@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet author="Horugeva" id="createTable">
+        <createTable tableName="${prefix}_payments" schemaName="supplier">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="order_id" type="uuid"/>
+            <column name="orgn" type="VARCHAR(13)"/>
+            <column name="kpp" type="VARCHAR(9)"/>
+            <column name="inn" type="VARCHAR(12)"/>
+            <column name="r_s" type="VARCHAR(20)"/>
+            <column name="cost" type="INTEGER"/>
+            <column name="payment_external_id" type="uuid"/>
+            <column name="payment_callback_url" type="VARCHAR"/>
+            <column name="status" type="VARCHAR(255)"/>
+            <column name="output_id" type="INTEGER"/>
+            <column name="store_calling_url" type="VARCHAR"/>
+            <column name="creation_date" type="TIMESTAMP"/>
+            <column name="update_date" type="TIMESTAMP"/>
+        </createTable>
+    </changeSet>
+  </databaseChangeLog>
