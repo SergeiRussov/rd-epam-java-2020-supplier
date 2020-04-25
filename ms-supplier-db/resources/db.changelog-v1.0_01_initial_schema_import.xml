@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="items" author="AiratSalakhov">
+        <createTable tableName="items" schemaName="supplier">
+            <column name="id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="name" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueComputed="current_timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="items_key" author="AiratSalakhov">
+        <addPrimaryKey columnNames="id"
+                       tableName="items"
+                       validate="true"
+                       schemaName="supplier"/>
+    </changeSet>
+
+    <changeSet id="orders" author="AiratSalakhov">
+        <createTable tableName="orders" schemaName="supplier">
+            <column name="id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="customer" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cost" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueComputed="current_timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="orders_key" author="AiratSalakhov">
+        <addPrimaryKey columnNames="id"
+                       tableName="orders"
+                       validate="true"
+                       schemaName="supplier"/>
+    </changeSet>
+
+    <changeSet id="payments" author="AiratSalakhov">
+        <createTable tableName="payments" schemaName="supplier">
+            <column name="id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="orgn" type="varchar(13)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kpp" type="varchar(9)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="inn" type="varchar(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="r_s" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="cost" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_external_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_callback_url" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="output_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="store_calling_url" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueComputed="current_timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="payments_key" author="AiratSalakhov">
+        <addPrimaryKey columnNames="id"
+                       tableName="payments"
+                       validate="true"
+                       schemaName="supplier"/>
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="payments"
+                                 constraintName="fk_payments_order"
+                                 referencedColumnNames="id"
+                                 referencedTableName="orders"
+                                 validate="true"/>
+    </changeSet>
+
+    <changeSet id="production" author="AiratSalakhov">
+        <createTable tableName="production" schemaName="supplier">
+            <column name="id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="item_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueComputed="current_timestamp">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="production_key" author="AiratSalakhov">
+        <addPrimaryKey columnNames="id"
+                       tableName="production"
+                       validate="true"
+                       schemaName="supplier"/>
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="production"
+                                 constraintName="fk_production_order"
+                                 referencedColumnNames="id"
+                                 referencedTableName="orders"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="item_id"
+                                 baseTableName="production"
+                                 constraintName="fk_payments_item"
+                                 referencedColumnNames="id"
+                                 referencedTableName="items"
+                                 validate="true"/>
+    </changeSet>
+</databaseChangeLog>
