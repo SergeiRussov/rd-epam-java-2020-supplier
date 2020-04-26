@@ -21,7 +21,7 @@
             <column name="creation_date" type="timestamptz" defaultValueComputed="current_timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="update_date" type="timestamptz">
+            <column name="update_date" type="timestamptz" defaultValueComputed="current_timestamp">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -51,7 +51,7 @@
             <column name="creation_date" type="timestamptz" defaultValueComputed="current_timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="update_date" type="timestamptz">
+            <column name="update_date" type="timestamptz" defaultValueComputed="current_timestamp">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -105,7 +105,7 @@
             <column name="creation_date" type="timestamptz" defaultValueComputed="current_timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="update_date" type="timestamptz">
+            <column name="update_date" type="timestamptz" defaultValueComputed="current_timestamp">
                 <constraints nullable="false"/>
             </column>
         </createTable>
@@ -138,7 +138,7 @@
             <column name="creation_date" type="timestamptz" defaultValueComputed="current_timestamp">
                 <constraints nullable="false"/>
             </column>
-            <column name="update_date" type="timestamptz">
+            <column name="update_date" type="timestamptz" defaultValueComputed="current_timestamp">
                 <constraints nullable="false"/>
             </column>
         </createTable>
