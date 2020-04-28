@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <changeSet id="create-product-table-28-04-2020" author="Aminev Ramil">
+        <createTable tableName="product" schemaName="supplier">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="price" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-order-table-28-04-2020" author="Aminev Ramil">
+        <createTable tableName="order" schemaName="supplier">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="customer" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-payment-table-28-04-2020" author="Aminev Ramil">
+        <createTable tableName="payment" schemaName="supplier">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="order_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ogrn" type="varchar(13)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kpp" type="varchar(9)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="inn" type="varchar(12)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="r_s" type="varchar(20)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amount" type="int8">
+                <constraints nullable="false"/>
+            </column>
+            <column name="acceptance_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_callback_url" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="invoice_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="store_callback_url" type="varchar">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="create-production-table-28-04-2020" author="Aminev Ramil">
+        <createTable tableName="item">
+            <column name="id" type="uuid">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="product_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="order_id" type="uuid">
+                <constraints nullable="false"/>
+            </column>
+            <column name="creation_date" type="timestamptz" defaultValueDate="current_timestamptz">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_date" type="timestamptz">
+                <constraints nullable="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="setup-foreign-keys-28-04-2020" author="Aminev Ramil">
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="payment"
+                                 constraintName="payment_order_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="order"/>
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="item"
+                                 constraintName="item_product_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="product"/>
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="item"
+                                 constraintName="item_order_id_fkey"
+                                 referencedColumnNames="id"
+                                 referencedTableName="order"/>
+    </changeSet>
+</databaseChangeLog>
+

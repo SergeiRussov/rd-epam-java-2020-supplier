@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.epam.rd</groupId>
     <artifactId>rd-epam-java-2020-supplier</artifactId>
@@ -18,6 +19,20 @@
         <maven-site-plugin.ver>3.9.0</maven-site-plugin.ver>
         <lombok.ver>1.18.12</lombok.ver>
         <logback-classic.ver>1.2.3</logback-classic.ver>
+        <postgresql.ver>42.2.12</postgresql.ver>
+        <liquibase.ver>3.8.9</liquibase.ver>
+
+        <fileEnc>UTF-8</fileEnc>
+        <!--  Liquibase Section   -->
+        <driver>org.postgresql.Driver</driver>
+        <liquid.user>supplier</liquid.user>
+        <liquibase.password>supplier</liquibase.password>
+        <liquibase.host>localhost</liquibase.host>
+        <liquibase.port>5432</liquibase.port>
+        <liquibase.db>courses</liquibase.db>
+        <liquibase.schema>supplier</liquibase.schema>
+        <liquibase.changelogfile>resources/db.changelog-master.xml</liquibase.changelogfile>
+        <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
     </properties>
 
     <build>
@@ -36,7 +51,15 @@
                 <artifactId>maven-site-plugin</artifactId>
                 <version>${maven-site-plugin.ver}</version>
                 <configuration>
-                    <outputEncoding>UTF-8</outputEncoding>
+                    <outputEncoding>${fileEnc}</outputEncoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.7</version>
+                <configuration>
+                    <useDefaultDelimiters>true</useDefaultDelimiters>
                 </configuration>
             </plugin>
         </plugins>
@@ -54,6 +77,16 @@
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback-classic.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-core</artifactId>
+                <version>${liquibase.ver}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
