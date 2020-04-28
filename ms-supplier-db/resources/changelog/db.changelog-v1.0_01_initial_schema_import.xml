@@ -5,8 +5,7 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="create-product-table-28-04-2020"
-               author="Aminev Ramil">
+    <changeSet id="create-product-table-28-04-2020" author="Aminev Ramil">
         <createTable tableName="product" schemaName="supplier">
             <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
