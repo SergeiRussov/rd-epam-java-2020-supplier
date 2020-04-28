@@ -4,8 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet id="items" author="AiratSalakhov">
-        <createTable tableName="items" schemaName="supplier">
+    <changeSet id="create-product-table-27-04-2020" author="AiratSalakhov">
+        <createTable tableName="product" schemaName="supplier">
             <column name="id" type="uuid">
                 <constraints nullable="false"/>
             </column>
@@ -27,15 +27,15 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="items_key" author="AiratSalakhov">
+    <changeSet id="create-product-key-27-04-2020" author="AiratSalakhov">
         <addPrimaryKey columnNames="id"
-                       tableName="items"
+                       tableName="product"
                        validate="true"
                        schemaName="supplier"/>
     </changeSet>
 
-    <changeSet id="orders" author="AiratSalakhov">
-        <createTable tableName="orders" schemaName="supplier">
+    <changeSet id="create-order-table-27-04-2020" author="AiratSalakhov">
+        <createTable tableName="order" schemaName="supplier">
             <column name="id" type="uuid">
                 <constraints nullable="false"/>
             </column>
@@ -57,15 +57,15 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="orders_key" author="AiratSalakhov">
+    <changeSet id="create-order-key-27-04-2020" author="AiratSalakhov">
         <addPrimaryKey columnNames="id"
-                       tableName="orders"
+                       tableName="order"
                        validate="true"
                        schemaName="supplier"/>
     </changeSet>
 
-    <changeSet id="payments" author="AiratSalakhov">
-        <createTable tableName="payments" schemaName="supplier">
+    <changeSet id="create-payment-table-27-04-2020" author="AiratSalakhov">
+        <createTable tableName="payment" schemaName="supplier">
             <column name="id" type="uuid">
                 <constraints nullable="false"/>
             </column>
@@ -111,25 +111,25 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="payments_key" author="AiratSalakhov">
+    <changeSet id="create-payment-key-27-04-2020" author="AiratSalakhov">
         <addPrimaryKey columnNames="id"
-                       tableName="payments"
+                       tableName="payment"
                        validate="true"
                        schemaName="supplier"/>
         <addForeignKeyConstraint baseColumnNames="order_id"
-                                 baseTableName="payments"
-                                 constraintName="fk_payments_order"
+                                 baseTableName="payment"
+                                 constraintName="fk_payment_order"
                                  referencedColumnNames="id"
-                                 referencedTableName="orders"
+                                 referencedTableName="order"
                                  validate="true"/>
     </changeSet>
 
-    <changeSet id="production" author="AiratSalakhov">
-        <createTable tableName="production" schemaName="supplier">
+    <changeSet id="create-item-table-27-04-2020" author="AiratSalakhov">
+        <createTable tableName="item" schemaName="supplier">
             <column name="id" type="uuid">
                 <constraints nullable="false"/>
             </column>
-            <column name="item_id" type="uuid">
+            <column name="product_id" type="uuid">
                 <constraints nullable="false"/>
             </column>
             <column name="order_id" type="uuid">
@@ -144,22 +144,22 @@
         </createTable>
     </changeSet>
 
-    <changeSet id="production_key" author="AiratSalakhov">
+    <changeSet id="create-item-key-27-04-2020" author="AiratSalakhov">
         <addPrimaryKey columnNames="id"
-                       tableName="production"
+                       tableName="item"
                        validate="true"
                        schemaName="supplier"/>
-        <addForeignKeyConstraint baseColumnNames="order_id"
-                                 baseTableName="production"
-                                 constraintName="fk_production_order"
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="item"
+                                 constraintName="fk_item_product"
                                  referencedColumnNames="id"
-                                 referencedTableName="orders"
+                                 referencedTableName="product"
                                  validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="item_id"
-                                 baseTableName="production"
-                                 constraintName="fk_payments_item"
+        <addForeignKeyConstraint baseColumnNames="order_id"
+                                 baseTableName="item"
+                                 constraintName="fk_item_order"
                                  referencedColumnNames="id"
-                                 referencedTableName="items"
+                                 referencedTableName="order"
                                  validate="true"/>
     </changeSet>
 </databaseChangeLog>
