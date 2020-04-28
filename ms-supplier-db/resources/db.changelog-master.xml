@@ -5,11 +5,11 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
     <property name="prefix" value="supplier"/>
 
-    <include file="db.changelog-v1-create_table_items.xml"/>
-    <include file="db.changelog-v1-create_table_orders.xml"/>
-    <include file="db.changelog-v1-create_table_payments.xml"/>
-    <include file="db.changelog-v1-create_table_production.xml"/>
-    <include file="key_payments.xml"/>
+    <include file="db.changelog-v1-create_table_item.xml"/>
+    <include file="db.changelog-v1-create_table_order.xml"/>
+    <include file="db.changelog-v1-create_table_payment.xml"/>
+    <include file="db.changelog-v1-create_table_product.xml"/>
+    <include file="key_payment.xml"/>
     <include file="key_production.xml"/>
 
 </databaseChangeLog>

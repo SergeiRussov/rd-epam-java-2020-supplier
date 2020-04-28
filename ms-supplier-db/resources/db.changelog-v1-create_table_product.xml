@@ -4,8 +4,8 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet author="Horugeva" id="createTable">
-        <createTable tableName="${prefix}_items" schemaName="supplier">
+    <changeSet author="Horugeva" id="create-table-product-27-04-2020">
+        <createTable tableName="${prefix}_product" schemaName="supplier">
             <column name="id" type="uuid">
                 <constraints primaryKey="true"/>
             </column>

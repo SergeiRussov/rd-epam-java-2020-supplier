@@ -4,14 +4,13 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
-    <changeSet author="Horugeva" id="createTable">
-        <createTable tableName="${prefix}_orders" schemaName="supplier">
+    <changeSet author="Horugeva" id="create-table-items-27-04-2020">
+        <createTable tableName="${prefix}_item" schemaName="supplier">
             <column name="id" type="uuid">
                 <constraints primaryKey="true"/>
             </column>
-            <column name="customer" type="VARCHAR(255)"/>
-            <column name="status" type="VARCHAR(255)"/>
-            <column name="cost" type="INTEGER"/>
+            <column name="product_id" type="uuid"/>
+            <column name="order_id" type="uuid"/>
             <column name="creation_date" type="TIMESTAMP"/>
             <column name="update_date" type="TIMESTAMP"/>
         </createTable>

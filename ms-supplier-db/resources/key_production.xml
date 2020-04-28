@@ -5,18 +5,18 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
 
 
-<changeSet author="Horugeva" id="production_key" >
+<changeSet author="Horugeva" id="create-production-table-27-04-2020" >
         <addForeignKeyConstraint baseColumnNames="order_id"
-                                 baseTableName="${prefix}_production"
-                                 constraintName="fk_production_order"
+                                 baseTableName="${prefix}_item"
+                                 constraintName="fk_item_order"
                                  referencedColumnNames="id"
-                                 referencedTableName="${prefix}_orders"
+                                 referencedTableName="${prefix}_order"
                                  validate="true"/>
-        <addForeignKeyConstraint baseColumnNames="item_id"
-                                 baseTableName="${prefix}_production"
-                                 constraintName="fk_payments_item"
+        <addForeignKeyConstraint baseColumnNames="product_id"
+                                 baseTableName="${prefix}_item"
+                                 constraintName="fk_payment_product"
                                  referencedColumnNames="id"
-                                 referencedTableName="${prefix}_items"
+                                 referencedTableName="${prefix}_product"
                                  validate="true"/>
     </changeSet>
 </databaseChangeLog>
