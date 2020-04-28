@@ -6,5 +6,5 @@
 <!--
 mvn clean install liquibase::update вызванной из модуля supplier-db.
 -->
-    <include file="./db.changelog-v1.0_01_initial_schema_import.xml" relativeToChangelogFile="true"/>
+    <include file="./changes/db.changelog-v1.0_01_initial_schema_import.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>
