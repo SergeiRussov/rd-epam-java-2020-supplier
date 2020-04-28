@@ -21,7 +21,6 @@
         <logback-classic.ver>1.2.3</logback-classic.ver>
         <postgresql.ver>42.2.12</postgresql.ver>
         <liquibase.ver>3.8.9</liquibase.ver>
-        <hibernate.ver>5.4.14.Final</hibernate.ver>
 
         <fileEnc>UTF-8</fileEnc>
         <!--  Liquibase Section   -->
@@ -88,16 +87,6 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-core</artifactId>
                 <version>${liquibase.ver}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-core</artifactId>
-                <version>${hibernate.ver}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.hibernate</groupId>
-                <artifactId>hibernate-entitymanager</artifactId>
-                <version>${hibernate.ver}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
