@@ -91,7 +91,12 @@ public class ItemRepository implements Repository<Item> {
      */
     @Override
     public void delete(Item item) {
+        if (!entityManager.contains(item)) {
+            log.info("Entity is not presented in repository: {}", item);
+            return;
+        }
         try {
+            log.info("Deleting Item entity from repository: {}", item);
             entityManager.getTransaction().begin();
             entityManager.remove(item);
             entityManager.flush();
