@@ -33,11 +33,11 @@ public class Item {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id")
-    private Product productId;
+    private Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
-    private Order orderId;
+    private Order order;
 
     private OffsetDateTime creationDate;
     private OffsetDateTime updateDate;
