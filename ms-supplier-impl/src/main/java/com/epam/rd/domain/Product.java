@@ -10,6 +10,7 @@ import java.util.UUID;
 
 @Data
 @Entity
+@Table(name="product")
 public class Product {
 
     @Id
@@ -18,7 +19,7 @@ public class Product {
             name = "UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    UUID id;
+    private UUID id;
 
     @OneToMany(mappedBy = "product")
     private Set<Item> items;
