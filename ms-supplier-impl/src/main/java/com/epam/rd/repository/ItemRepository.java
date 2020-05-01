@@ -87,22 +87,22 @@ public class ItemRepository implements Repository<Item> {
     /**
      * Removes given entity from persistence context.
      *
-     * @param item
+     * @param item to delete from repository.
      */
     @Override
     public void delete(Item item) {
-        if (!entityManager.contains(item)) {
+        if (entityManager.find(Item.class, item.getId()) != null) {
+            try {
+                log.info("Deleting Item entity from repository: {}", item);
+                entityManager.getTransaction().begin();
+                entityManager.remove(item);
+                entityManager.flush();
+                entityManager.getTransaction().commit();
+            } catch (PersistenceException e) {
+                log.error(e.toString());
+            }
+        } else {
             log.info("Entity is not presented in repository: {}", item);
-            return;
-        }
-        try {
-            log.info("Deleting Item entity from repository: {}", item);
-            entityManager.getTransaction().begin();
-            entityManager.remove(item);
-            entityManager.flush();
-            entityManager.getTransaction().commit();
-        } catch (PersistenceException e) {
-            log.error(e.toString());
         }
     }
 }
