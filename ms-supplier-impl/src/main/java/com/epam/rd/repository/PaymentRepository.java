@@ -1,6 +1,5 @@
 package com.epam.rd.repository;
 
-import com.epam.rd.domain.Item;
 import com.epam.rd.domain.Payment;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,27 +13,27 @@ import java.util.Optional;
 import java.util.UUID;
 
 /**
- * CRUD repository implementation for Item entity.
+ * CRUD repository implementation for Payment entity.
  *
  * @author Aminev Ramil
  */
 @Slf4j
-public class ItemRepository implements Repository<Item> {
+public class PaymentRepository implements Repository<Payment> {
     private final EntityManager entityManager = Persistence
             .createEntityManagerFactory("supplier-pu")
             .createEntityManager();
 
     /**
-     * Trying to find {@code Item} entity in persistence context using it's id.
+     * Trying to find {@code Payment} entity in persistence context using it's id.
      *
      * @param id of entity to find.
      * @return {@code Optional} with search result.
      */
     @Override
-    public Optional<Item> findById(UUID id) {
+    public Optional<Payment> findById(UUID id) {
         log.info("Finding Item entity by id={}", id);
         try {
-            return Optional.ofNullable(entityManager.find(Item.class, id));
+            return Optional.ofNullable(entityManager.find(Payment.class, id));
         } catch (PersistenceException e) {
             log.error(e.toString());
         }
@@ -43,16 +42,16 @@ public class ItemRepository implements Repository<Item> {
 
     /**
      * Trying to get all entities stored in repository.
-     * If there is no Items in repository or some error
+     * If there is no Payments in repository or some error
      * occurs, method return empty list.
      *
-     * @return list of Items from repository.
+     * @return list of Payments from repository.
      */
     @Override
-    public List<Item> findAll() {
+    public List<Payment> findAll() {
         try {
             log.info("Finding all Item entities in repository");
-            Query findAllQuery = entityManager.createNativeQuery("select * from item;", Item.class);
+            Query findAllQuery = entityManager.createNativeQuery("select * from payment;", Payment.class);
             return findAllQuery.getResultList();
         } catch (PersistenceException e) {
             log.error(e.toString());
@@ -65,18 +64,18 @@ public class ItemRepository implements Repository<Item> {
      * already in persistence context, then specified entity updating
      * entity that already exists.
      *
-     * @param item to save.
+     * @param payment to save.
      */
     @Override
-    public void save(Item item) {
+    public void save(Payment payment) {
         try {
             entityManager.getTransaction().begin();
-            if (entityManager.find(Payment.class, item.getId()) != null) {
-                log.info("Updating entity in repository. Updated Item: {}", item);
-                entityManager.merge(item);
+            if (entityManager.find(Payment.class, payment.getId()) != null) {
+                log.info("Updating entity in repository. Updated Payment: {}", payment);
+                entityManager.merge(payment);
             } else {
-                log.info("Inserting entity to repository. New Item: {}", item);
-                entityManager.persist(item);
+                log.info("Inserting entity to repository. New Payment: {}", payment);
+                entityManager.persist(payment);
             }
             entityManager.flush();
             entityManager.getTransaction().commit();
@@ -88,22 +87,22 @@ public class ItemRepository implements Repository<Item> {
     /**
      * Removes given entity from persistence context.
      *
-     * @param item to delete from repository.
+     * @param payment to delete from repository.
      */
     @Override
-    public void delete(Item item) {
-        if (entityManager.find(Item.class, item.getId()) != null) {
+    public void delete(Payment payment) {
+        if (entityManager.find(Payment.class, payment.getId()) != null) {
             try {
-                log.info("Deleting Item entity from repository: {}", item);
+                log.info("Deleting Payment entity from repository: {}", payment);
                 entityManager.getTransaction().begin();
-                entityManager.remove(item);
+                entityManager.remove(payment);
                 entityManager.flush();
                 entityManager.getTransaction().commit();
             } catch (PersistenceException e) {
                 log.error(e.toString());
             }
         } else {
-            log.info("Entity is not presented in repository: {}", item);
+            log.info("Entity is not presented in repository: {}", payment);
         }
     }
 }
