@@ -1,4 +1,4 @@
-package com.epam.rd.service;
+package com.epam.rd.repository;
 
 import com.epam.rd.domain.Product;
 import lombok.extern.slf4j.Slf4j;
@@ -11,8 +11,8 @@ import java.util.UUID;
 @Slf4j
 public class ProductRepository {
     private static final String EXCEPTION = "Произошло исключение при обработке команды ";
-    EntityManagerFactory emf = Persistence.createEntityManagerFactory("supplier-pu");
-    EntityManager manager = emf.createEntityManager();
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("supplier-pu");
+    private EntityManager manager = emf.createEntityManager();
 
     public ProductRepository() {
     }

@@ -1,4 +1,4 @@
-package com.epam.rd.service;
+package com.epam.rd.repository;
 
 public class CommandExecutionException extends RuntimeException {
     public CommandExecutionException(String message) {

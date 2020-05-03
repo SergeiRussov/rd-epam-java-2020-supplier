@@ -4,7 +4,7 @@ import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.OffsetDateTime;
 import java.util.Set;
 import java.util.UUID;
 
@@ -31,13 +31,13 @@ public class Product {
     private String description;
 
     @Column(name = "price")
-    private int price;
+    private long price;
 
     @Column(name = "creation_date")
-    private Date creationDate;
+    private OffsetDateTime creationDate;
 
     @Column(name = "update_date")
-    private Date updateDate;
+    private OffsetDateTime updateDate;
 }
 
 
