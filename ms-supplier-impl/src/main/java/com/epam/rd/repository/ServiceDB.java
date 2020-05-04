@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ServiceDB<T> {
-    //public void init();
     public List<T> getAll();
 
     public UUID create();
