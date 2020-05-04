@@ -7,6 +7,12 @@ import javax.persistence.*;
 import java.time.ZonedDateTime;
 import java.util.UUID;
 
+/**
+ * POJO class {@code Order} represents domain entity from order table
+ *
+ * @author Salakhov Airat
+ */
+
 @Data
 @Entity
 @Table(name = "supplier.order")
