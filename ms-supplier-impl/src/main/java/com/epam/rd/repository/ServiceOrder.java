@@ -2,8 +2,10 @@ package com.epam.rd.repository;
 
 import com.epam.rd.domain.Order;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
 import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -24,7 +26,7 @@ public class ServiceOrder implements ServiceDB<Order> {
         List<Order> orderList = new ArrayList<Order>();
 
         try {
-            orderList = entityManager.createNativeQuery("select * from supplier.order", Order.class).getResultList();
+            orderList = entityManager.createQuery("FROM Order", Order.class).getResultList();
         } catch (HibernateException e) {
             log.info(e.getMessage());
         }
