@@ -22,4 +22,9 @@ public class ItemServiceImpl implements ItemService {
     public Item create(UUID productUUID, Order orderUUID) {
         return null;
     }
+
+    @Override
+    public List<Item> findOrderItems(UUID uuid) {
+        return null;
+    }
 }
