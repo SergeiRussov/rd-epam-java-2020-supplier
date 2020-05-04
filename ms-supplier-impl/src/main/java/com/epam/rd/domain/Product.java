@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
-import java.util.Date;
 import java.util.Set;
 import java.util.UUID;
 
