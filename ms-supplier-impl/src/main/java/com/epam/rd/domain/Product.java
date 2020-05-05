@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.OffsetDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -21,7 +21,7 @@ public class Product {
     UUID id;
 
     @OneToMany(mappedBy = "product")
-    private Set<Item> items;
+    private List<Item> items;
 
     @Column(name = "name")
     private String name;

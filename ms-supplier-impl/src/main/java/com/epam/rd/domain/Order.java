@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -24,7 +24,7 @@ public class Order {
     private UUID id;
 
     @OneToMany(mappedBy = "order_item")
-    private Set<Item> orderItems;
+    private List<OrderItem> orderItems;
 
     @Column(name = "customer")
     private String customer;
