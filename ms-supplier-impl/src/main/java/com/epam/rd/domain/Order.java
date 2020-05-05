@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -21,6 +22,9 @@ public class Order {
     @Id
     @GeneratedValue(generator = "uuid")
     private UUID id;
+
+    @OneToMany(mappedBy = "order_item")
+    private List<OrderItem> orderItems;
 
     @Column(name = "customer")
     private String customer;
