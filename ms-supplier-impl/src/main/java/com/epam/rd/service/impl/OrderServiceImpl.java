@@ -15,11 +15,12 @@ import java.util.UUID;
 
 public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository = new OrderRepository();
+    OrderItemRepository orderItemRepository = new OrderItemRepository();
+    ProductRepository productRepository = new ProductRepository();
+    PaymentServiceImpl paymentService = new PaymentServiceImpl();
 
     @Override
     public UUID create(Map<UUID, Integer> order) {
-        OrderItemRepository orderItemRepository = new OrderItemRepository();
-        ProductRepository productRepository = new ProductRepository();
         Order newOrder = new Order();
         newOrder.setCreationDate(ZonedDateTime.now());
         newOrder.setUpdateDate(ZonedDateTime.now());
@@ -34,7 +35,6 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setAmount(order.get(key));
             orderItemRepository.save(orderItem);
         }
-        PaymentServiceImpl paymentService = new PaymentServiceImpl();
         return paymentService.create(newOrder.getId());
     }
 

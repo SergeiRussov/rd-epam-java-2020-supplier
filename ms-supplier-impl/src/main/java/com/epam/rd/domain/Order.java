@@ -23,7 +23,7 @@ public class Order {
     @GeneratedValue(generator = "uuid")
     private UUID id;
 
-    @OneToMany(mappedBy = "order_item")
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 
     @Column(name = "customer")
