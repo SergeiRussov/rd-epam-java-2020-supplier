@@ -22,8 +22,6 @@
         <postgresql.ver>42.2.12</postgresql.ver>
         <liquibase.ver>3.8.9</liquibase.ver>
         <hibernate.ver>5.4.14.Final</hibernate.ver>
-        <junit.jupiter.ver>5.7.0-M1</junit.jupiter.ver>
-        <mockito.ver>2.23.0</mockito.ver>
 
         <fileEnc>UTF-8</fileEnc>
         <!--  Liquibase Section   -->
@@ -36,6 +34,7 @@
         <liquibase.schema>supplier</liquibase.schema>
         <liquibase.changelogfile>resources/db.changelog-master.xml</liquibase.changelogfile>
         <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+        <junit.version>4.13</junit.version>
     </properties>
 
     <build>
@@ -102,15 +101,9 @@
                 <version>${hibernate.ver}</version>
             </dependency>
             <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
-                <version>${junit.jupiter.ver}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-junit-jupiter</artifactId>
-                <version>${mockito.ver}</version>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

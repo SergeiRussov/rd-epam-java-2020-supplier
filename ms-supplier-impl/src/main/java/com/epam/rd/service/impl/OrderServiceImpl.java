@@ -2,6 +2,7 @@ package com.epam.rd.service.impl;
 
 import com.epam.rd.domain.Order;
 import com.epam.rd.domain.OrderItem;
+import com.epam.rd.domain.OrderStatus;
 import com.epam.rd.repository.OrderItemRepository;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.ProductRepository;
@@ -13,15 +14,16 @@ import java.util.Map;
 import java.util.UUID;
 
 public class OrderServiceImpl implements OrderService {
+    private OrderRepository orderRepository = new OrderRepository();
+
     @Override
     public UUID create(Map<UUID, Integer> order) {
-        OrderRepository orderRepository = new OrderRepository();
         OrderItemRepository orderItemRepository = new OrderItemRepository();
         ProductRepository productRepository = new ProductRepository();
         Order newOrder = new Order();
         newOrder.setCreationDate(ZonedDateTime.now());
         newOrder.setUpdateDate(ZonedDateTime.now());
-        newOrder.setStatus("not_paid");
+        newOrder.setStatus(OrderStatus.NEW);
         orderRepository.save(newOrder);
         for (UUID key : order.keySet()) {
             OrderItem orderItem = new OrderItem();
@@ -38,9 +40,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void markAsPaid(UUID uuid) {
-        OrderRepository orderRepository = new OrderRepository();
         Order order = orderRepository.findById(uuid).get();
-        order.setStatus("paid");
+        order.setStatus(OrderStatus.PAID);
         orderRepository.save(order);
     }
 }

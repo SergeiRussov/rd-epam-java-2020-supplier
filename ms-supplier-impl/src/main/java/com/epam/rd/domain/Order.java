@@ -30,7 +30,8 @@ public class Order {
     private String customer;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @Column(name = "amount")
     private long amount;
@@ -44,7 +45,7 @@ public class Order {
     public Order() {
     }
 
-    public Order(String customer, String status, long amount, ZonedDateTime creationDate) {
+    public Order(String customer, OrderStatus status, long amount, ZonedDateTime creationDate) {
         this.customer = customer;
         this.status = status;
         this.amount = amount;
