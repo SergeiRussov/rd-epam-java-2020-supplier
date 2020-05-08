@@ -16,14 +16,14 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "supplier.order")
+@Table(name = "order")
 @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class Order {
     @Id
     @GeneratedValue(generator = "uuid")
     private UUID id;
 
-    @OneToMany(mappedBy = "order_item")
+    @OneToMany(mappedBy = "id")
     private List<OrderItem> orderItems;
 
     @Column(name = "customer")

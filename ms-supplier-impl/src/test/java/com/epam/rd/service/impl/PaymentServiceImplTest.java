@@ -1,5 +1,6 @@
 package com.epam.rd.service.impl;
 
+import com.epam.rd.domain.Order;
 import com.epam.rd.domain.Payment;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.PaymentRepository;
@@ -11,6 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.OffsetDateTime;
+import java.time.OffsetTime;
+import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -31,8 +35,18 @@ class PaymentServiceImplTest {
     @InjectMocks
     PaymentServiceImpl paymentService = new PaymentServiceImpl();
 
+
     @Test
     public void createTest() {
+
+        //Create Order based on which Payment will created
+        Order testOrder = new Order();
+        testOrder.setId(UUID.fromString("cb9bd7c5-8c0e-4059-9fdd-16929fc34708"));
+        testOrder.setCustomer("STUB CUSTOMER");
+        testOrder.setAmount(111);
+        testOrder.setCreationDate(ZonedDateTime.now());
+        orderRepository.save(testOrder);
+
         UUID uuid = paymentService.create(UUID.fromString("cb9bd7c5-8c0e-4059-9fdd-16929fc34708"));
         Optional<Payment> paymentOptional = paymentRepository.findById(uuid);
 
@@ -59,8 +73,13 @@ class PaymentServiceImplTest {
     @Test
     public void updateTest() {
         UUID paymentUuid = paymentService.create(UUID.fromString("b6c2f230-ef6d-4e81-a893-220294866836"));
-
         paymentService.updateStatus(paymentUuid);
+
+        Optional<Payment> paymentOptional = paymentRepository.findById(paymentUuid);
+        assertTrue(paymentOptional.isPresent());
+        Payment payment = paymentOptional.get();
+        assertNotNull(payment.getUpdateDate());
+        assertTrue(payment.getUpdateDate().compareTo(payment.getCreationDate()) > 0);
     }
 
 }
