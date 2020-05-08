@@ -26,7 +26,7 @@ public interface ProductService {
      * @param description описание продукции
      * @param price цена
      */
-    void save(String name, String description, Long price);
+    Product save(String name, String description, Long price);
 
     /**
      * Метод обновления продукции
@@ -35,6 +35,6 @@ public interface ProductService {
      * @param description описание продукции
      * @param price цена
      */
-    void update(UUID uuid, String name, String description, Long price);
+    Product update(UUID uuid, String name, String description, Long price);
 }
 

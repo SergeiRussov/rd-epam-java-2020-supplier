@@ -58,7 +58,7 @@ public class ProductRepository implements Repository<Product> {
     }
 
     @Override
-    public void save(Product product) {
+    public Product save(Product product) {
         try {
             manager.getTransaction().begin();
             if (manager.find(Product.class, product.getId()) != null) {
@@ -73,16 +73,15 @@ public class ProductRepository implements Repository<Product> {
         } catch (javax.persistence.PersistenceException e) {
             log.debug(EXCEPTION, e);
         }
+        return product;
     }
 
-    public void update(UUID id, String name, String description, Long price) {
-        Product product = manager.find(Product.class, id);
+    public Product update(Product product) {
         manager.getTransaction().begin();
-        product.setName(name);
-        product.setDescription(description);
-        product.setPrice(price);
+        manager.merge(product);
         manager.getTransaction().commit();
         manager.close();
+        return product;
     }
 }
 

@@ -67,7 +67,7 @@ public class PaymentRepository implements Repository<Payment> {
      * @param payment to save.
      */
     @Override
-    public void save(Payment payment) {
+    public Payment save(Payment payment) {
         try {
             entityManager.getTransaction().begin();
             if (entityManager.find(Payment.class, payment.getId()) != null) {
@@ -82,6 +82,7 @@ public class PaymentRepository implements Repository<Payment> {
         } catch (PersistenceException e) {
             log.error(e.toString());
         }
+        return payment;
     }
 
     /**

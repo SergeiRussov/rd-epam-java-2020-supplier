@@ -6,17 +6,16 @@ import com.epam.rd.repository.ProductRepository;
 import com.epam.rd.service.ProductService;
 import lombok.RequiredArgsConstructor;
 
+import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-
     private final ProductRepository productRepository;
 
     @Override
     public Product find(UUID uuid) {
-
         return productRepository.findById(uuid).orElseThrow(() -> new PersistenceException(uuid.toString()));
     }
 
@@ -25,20 +24,26 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
-
     @Override
-    public void save(String name, String description, Long price) {
+    public Product save(String name, String description, Long price) {
         Product product = new Product();
         product.setName(name);
         product.setDescription(description);
         product.setPrice(price);
+        product.setCreationDate(OffsetDateTime.now() );
         productRepository.save(product);
+        return product;
     }
 
     @Override
-    public void update(UUID uuid, String name, String description, Long price) {
-        productRepository.update(uuid, name, description, price);
-
+    public Product update(UUID uuid, String name, String description, Long price) {
+        Product product = new Product();
+        product.setId(uuid);
+        product.setName(name);
+        product.setDescription(description);
+        product.setPrice(price);
+        product.setUpdateDate(OffsetDateTime.now());
+        productRepository.update(product);
+        return product;
     }
-
 }

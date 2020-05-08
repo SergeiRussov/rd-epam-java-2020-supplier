@@ -49,7 +49,11 @@ public class ProductServiceImplTest {
         String name = "ProductName";
         String description = "Product description";
         Long price = 125487L;
-        productService.save(name, description, price);
+        Product product = productService.save(name, description, price);
+        assertEquals(name, product.getName());
+        assertEquals(description, product.getDescription());
+        assertEquals(price, product.getPrice());
+        assertNotNull(product.getCreationDate());
         verify(productRepository, times(1)).save(any());
     }
 
@@ -60,7 +64,12 @@ public class ProductServiceImplTest {
         String name = "ProductName";
         String description = "Product description";
         Long price = 125487L;
-        productService.update(uuid, name, description, price);
-        verify(productRepository, times(1)).update(uuid, name, description, price);
+        Product product = productService.update(uuid, name, description, price);
+        assertEquals(uuid, product.getId());
+        assertEquals(name, product.getName());
+        assertEquals(description, product.getDescription());
+        assertEquals(price, product.getPrice());
+        assertNotNull(product.getUpdateDate());
+        verify(productRepository, times(1)).update(any());
     }
 }

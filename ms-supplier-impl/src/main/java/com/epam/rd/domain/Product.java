@@ -31,7 +31,7 @@ public class Product {
     private String description;
 
     @Column(name = "price")
-    private long price;
+    private Long price;
 
     @Column(name = "creation_date")
     private OffsetDateTime creationDate;
