@@ -34,6 +34,7 @@
         <liquibase.schema>supplier</liquibase.schema>
         <liquibase.changelogfile>resources/db.changelog-master.xml</liquibase.changelogfile>
         <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+        <junit.version>4.13</junit.version>
     </properties>
 
     <build>
@@ -98,6 +99,12 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
