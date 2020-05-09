@@ -5,7 +5,7 @@ import com.epam.rd.domain.Payment;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.PaymentRepository;
 import com.epam.rd.service.stub.StubForPaymentService;
-import org.junit.jupiter.api.BeforeAll;
+import com.epam.rd.util.PaymentStates;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -13,12 +13,11 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.OffsetDateTime;
-import java.time.OffsetTime;
-import java.time.ZonedDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class PaymentServiceImplTest {
@@ -30,56 +29,43 @@ class PaymentServiceImplTest {
     private PaymentRepository paymentRepository = new PaymentRepository();
 
     @Mock
-    private StubForPaymentService stub = new StubForPaymentService();
+    private StubForPaymentService stubService = new StubForPaymentService();
 
     @InjectMocks
     PaymentServiceImpl paymentService = new PaymentServiceImpl();
 
-
     @Test
     public void createTest() {
+        UUID acceptanceUUID = UUID.fromString("bd54af07-e873-4d29-a113-b7b662736ccf");
+        UUID orderUUID = UUID.fromString("cb9bd7c5-8c0e-4059-9fdd-16929fc34708");
+        Order stubOrder = new Order();
+        stubOrder.setId(orderUUID);
+        stubOrder.setAmount(111);
 
-        //Create Order based on which Payment will created
-        Order testOrder = new Order();
-        testOrder.setId(UUID.fromString("cb9bd7c5-8c0e-4059-9fdd-16929fc34708"));
-        testOrder.setCustomer("STUB CUSTOMER");
-        testOrder.setAmount(111);
-        testOrder.setCreationDate(ZonedDateTime.now());
-        orderRepository.save(testOrder);
+        when(orderRepository.findById(orderUUID)).thenReturn(Optional.of(stubOrder));
+        when(stubService.getAcceptanceId()).thenReturn(acceptanceUUID);
 
         UUID uuid = paymentService.create(UUID.fromString("cb9bd7c5-8c0e-4059-9fdd-16929fc34708"));
-        Optional<Payment> paymentOptional = paymentRepository.findById(uuid);
 
-        assertTrue(paymentOptional.isPresent());
-        Payment payment = paymentOptional.get();
-
-        assertEquals(payment.getOrder().getId().toString(), "cb9bd7c5-8c0e-4059-9fdd-16929fc34708");
-        assertEquals(payment.getOgrn().length(), 13);
-        assertEquals(payment.getKpp().length(), 9);
-        assertEquals(payment.getInn().length(), 12);
-        assertEquals(payment.getRS().length(), 20);
-        assertTrue(payment.getAmount() >= 0);
-        assertNotNull(payment.getAcceptanceId());
-        assertNotNull(payment.getPaymentCallbackUrl());
-        assertTrue(payment.getStatus().equals("AWAITING") ||
-                payment.getStatus().equals("PROCESSING") ||
-                payment.getStatus().equals("PAID"));
-        assertNotNull(payment.getInvoiceId());
-        assertNotNull(payment.getStoreCallbackUrl());
-        assertNotNull(payment.getCreationDate());
-        assertNull(payment.getUpdateDate());
+        assertEquals(uuid, acceptanceUUID);
+        verify(paymentRepository, times(1)).save(any());
     }
 
     @Test
     public void updateTest() {
-        UUID paymentUuid = paymentService.create(UUID.fromString("b6c2f230-ef6d-4e81-a893-220294866836"));
-        paymentService.updateStatus(paymentUuid);
+        UUID paymentUUID = UUID.fromString("b6c2f230-ef6d-4e81-a893-220294866836");
+        Payment stubPayment = new Payment();
+        stubPayment.setStatus(PaymentStates.AWAITING);
+        stubPayment.setCreationDate(OffsetDateTime.now());
+        Optional<Payment> stubPaymentOptional = Optional.of(stubPayment);
 
-        Optional<Payment> paymentOptional = paymentRepository.findById(paymentUuid);
-        assertTrue(paymentOptional.isPresent());
-        Payment payment = paymentOptional.get();
-        assertNotNull(payment.getUpdateDate());
-        assertTrue(payment.getUpdateDate().compareTo(payment.getCreationDate()) > 0);
+        when(paymentRepository.findById(paymentUUID)).thenReturn(stubPaymentOptional);
+        when(stubService.getStatus(stubPaymentOptional.get().getAcceptanceId())).thenReturn("PROCESSING");
+
+        paymentService.updateStatus(paymentUUID);
+
+        verify(paymentRepository, times(1)).save(any());
+        assertEquals(stubPayment.getStatus(), PaymentStates.PROCESSING);
+        assertTrue(stubPayment.getUpdateDate().compareTo(stubPayment.getCreationDate()) > 0);
     }
-
 }

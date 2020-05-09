@@ -66,16 +66,16 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     public void updateStatus(UUID paymentUUID) {
         Optional<Payment> paymentOptional = paymentRepository.findById(paymentUUID);
-        if (paymentOptional.isPresent()) {
-            Payment payment = paymentOptional.get();
-            String newStatus = stub.getStatus(payment.getAcceptanceId());
-            payment.setStatus(paymentStatesConverter.get(newStatus));
-            log.info("Changed status for Payment with UUID {} to {}", payment.getId(), newStatus);
-            payment.setUpdateDate(OffsetDateTime.now());
-            paymentRepository.save(payment);
-        } else {
+        if (paymentOptional.isEmpty()) {
             log.warn("Payment with specified UUID is not presented in repository: {}", paymentUUID);
+            return;
         }
+        Payment payment = paymentOptional.get();
+        String newStatus = stub.getStatus(payment.getAcceptanceId());
+        payment.setStatus(paymentStatesConverter.get(newStatus));
+        log.info("Changed status for Payment with UUID {} to {}", payment.getId(), newStatus);
+        payment.setUpdateDate(OffsetDateTime.now());
+        paymentRepository.save(payment);
     }
 }
 
