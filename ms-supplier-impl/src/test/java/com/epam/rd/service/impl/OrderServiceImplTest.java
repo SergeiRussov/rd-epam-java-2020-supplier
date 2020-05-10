@@ -3,7 +3,6 @@ package com.epam.rd.service.impl;
 import com.epam.rd.domain.Order;
 import com.epam.rd.domain.OrderStatus;
 import com.epam.rd.domain.Product;
-import com.epam.rd.repository.OrderItemRepository;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.ProductRepository;
 import org.junit.Test;
@@ -27,8 +26,6 @@ import static org.mockito.Mockito.when;
 public class OrderServiceImplTest {
     @Mock
     private OrderRepository orderRepository;
-    @Mock
-    private OrderItemRepository orderItemRepository;
     @Mock
     private ProductRepository productRepository;
     @Mock
