@@ -6,20 +6,22 @@ import com.epam.rd.domain.Product;
 import com.epam.rd.repository.OrderItemRepository;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.ProductRepository;
-import com.epam.rd.service.PaymentService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class OrderServiceImplTest {
@@ -49,7 +51,6 @@ public class OrderServiceImplTest {
 
         verify(productRepository).findById(UUID.fromString("27c7f1a1-2cb9-45ab-a006-5978feb97177"));
         verify(orderRepository).save(any());
-        verify(orderItemRepository).save(any());
         assertThat(uuid, equalTo(UUID.fromString("a2048f7c-0c7d-46c7-afe8-ed9ee7ffffff")));
     }
 
