@@ -10,8 +10,7 @@ import com.epam.rd.service.OrderService;
 
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository = new OrderRepository();
@@ -22,10 +21,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public UUID create(Map<UUID, Integer> order) {
         Order newOrder = new Order();
+        List<OrderItem> orderItems = new ArrayList<>();
         newOrder.setCreationDate(ZonedDateTime.now());
         newOrder.setUpdateDate(ZonedDateTime.now());
         newOrder.setStatus(OrderStatus.NEW);
-        orderRepository.save(newOrder);
         for (UUID key : order.keySet()) {
             OrderItem orderItem = new OrderItem();
             orderItem.setCreationDate(OffsetDateTime.now());
@@ -33,15 +32,20 @@ public class OrderServiceImpl implements OrderService {
             orderItem.setOrder(newOrder);
             orderItem.setProduct(productRepository.findById(key).get());
             orderItem.setAmount(order.get(key));
-            orderItemRepository.save(orderItem);
+            orderItems.add(orderItem);
         }
+        newOrder.setOrderItems(orderItems);
+        orderRepository.save(newOrder);
         return paymentService.create(newOrder.getId());
     }
 
     @Override
     public void markAsPaid(UUID uuid) {
-        Order order = orderRepository.findById(uuid).get();
-        order.setStatus(OrderStatus.PAID);
-        orderRepository.save(order);
+        Optional optOrder = orderRepository.findById(uuid);
+        if (optOrder.isPresent()) {
+            Order order = (Order) optOrder.get();
+            order.setStatus(OrderStatus.PAID);
+            orderRepository.save(order);
+        }
     }
 }
