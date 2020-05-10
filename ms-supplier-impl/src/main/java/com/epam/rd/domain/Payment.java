@@ -1,16 +1,12 @@
 package com.epam.rd.domain;
 
+import com.epam.rd.util.PaymentStatus;
+import com.epam.rd.util.PaymentStatusesConverter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.Table;
-import javax.persistence.OneToOne;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
+import javax.persistence.*;
 import java.time.OffsetDateTime;
 import java.util.UUID;
 
@@ -37,7 +33,10 @@ public class Payment {
     private long amount;
     private UUID acceptanceId;
     private String paymentCallbackUrl;
-    private String status;
+
+    @Convert(converter = PaymentStatusesConverter.class)
+    private PaymentStatus paymentStatus;
+
     private UUID invoiceId;
     private String storeCallbackUrl;
     private OffsetDateTime creationDate;

@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -15,12 +16,15 @@ import java.util.UUID;
 
 @Data
 @Entity
-@Table(name = "supplier.order")
+@Table(name = "order")
 @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class Order {
     @Id
     @GeneratedValue(generator = "uuid")
     private UUID id;
+
+    @OneToMany(mappedBy = "id")
+    private List<OrderItem> orderItems;
 
     @Column(name = "customer")
     private String customer;
