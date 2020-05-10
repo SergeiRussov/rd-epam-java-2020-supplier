@@ -25,6 +25,7 @@ public interface ProductService {
      * @param name наименование продукции
      * @param description описание продукции
      * @param price цена
+     * @return {@link Product} созданная продукция в бд
      */
     Product save(String name, String description, Long price);
 
@@ -34,6 +35,7 @@ public interface ProductService {
      * @param name наименование продукции
      * @param description описание продукции
      * @param price цена
+     * @return {@link Product} созданная продукция в бд
      */
     Product update(UUID uuid, String name, String description, Long price);
 }

@@ -22,7 +22,8 @@
         <postgresql.ver>42.2.12</postgresql.ver>
         <liquibase.ver>3.8.9</liquibase.ver>
         <hibernate.ver>5.4.14.Final</hibernate.ver>
-
+        <junit.ver>4.12</junit.ver>
+        <mockito-core.ver>2.23.4</mockito-core.ver>
         <fileEnc>UTF-8</fileEnc>
         <!--  Liquibase Section   -->
         <driver>org.postgresql.Driver</driver>
@@ -98,6 +99,17 @@
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito-core.ver}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
