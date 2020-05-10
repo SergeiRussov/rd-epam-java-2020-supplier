@@ -1,7 +1,6 @@
 package com.epam.rd.util;
 
-public enum PaymentStates {
+public enum PaymentStatus {
     AWAITING,
-    PROCESSING,
     PAID
 }

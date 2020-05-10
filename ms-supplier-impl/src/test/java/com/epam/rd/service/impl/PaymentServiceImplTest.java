@@ -5,7 +5,7 @@ import com.epam.rd.domain.Payment;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.PaymentRepository;
 import com.epam.rd.service.stub.StubForPaymentService;
-import com.epam.rd.util.PaymentStates;
+import com.epam.rd.util.PaymentStatus;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -55,17 +55,16 @@ class PaymentServiceImplTest {
     public void updateTest() {
         UUID paymentUUID = UUID.fromString("b6c2f230-ef6d-4e81-a893-220294866836");
         Payment stubPayment = new Payment();
-        stubPayment.setStatus(PaymentStates.AWAITING);
+        stubPayment.setPaymentStatus(PaymentStatus.AWAITING);
         stubPayment.setCreationDate(OffsetDateTime.now());
         Optional<Payment> stubPaymentOptional = Optional.of(stubPayment);
 
         when(paymentRepository.findById(paymentUUID)).thenReturn(stubPaymentOptional);
-        when(stubService.getStatus(stubPaymentOptional.get().getAcceptanceId())).thenReturn("PROCESSING");
 
-        paymentService.updateStatus(paymentUUID);
+        paymentService.markAsPaid(paymentUUID);
 
         verify(paymentRepository, times(1)).save(any());
-        assertEquals(stubPayment.getStatus(), PaymentStates.PROCESSING);
+        assertEquals(stubPayment.getPaymentStatus(), PaymentStatus.PAID);
         assertTrue(stubPayment.getUpdateDate().compareTo(stubPayment.getCreationDate()) > 0);
     }
 }

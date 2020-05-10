@@ -1,7 +1,7 @@
 package com.epam.rd.domain;
 
-import com.epam.rd.util.PaymentStates;
-import com.epam.rd.util.PaymentStatesConverter;
+import com.epam.rd.util.PaymentStatus;
+import com.epam.rd.util.PaymentStatusesConverter;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
@@ -34,8 +34,8 @@ public class Payment {
     private UUID acceptanceId;
     private String paymentCallbackUrl;
 
-    @Convert(converter = PaymentStatesConverter.class)
-    private PaymentStates status;
+    @Convert(converter = PaymentStatusesConverter.class)
+    private PaymentStatus paymentStatus;
 
     private UUID invoiceId;
     private String storeCallbackUrl;

@@ -5,10 +5,10 @@ import javax.persistence.Converter;
 
 @Converter
 
-public class PaymentStatesConverter implements AttributeConverter<PaymentStates, String> {
+public class PaymentStatusesConverter implements AttributeConverter<PaymentStatus, String> {
 
     @Override
-    public String convertToDatabaseColumn(PaymentStates status) {
+    public String convertToDatabaseColumn(PaymentStatus status) {
         if (status == null) {
             return null;
         }
@@ -16,12 +16,12 @@ public class PaymentStatesConverter implements AttributeConverter<PaymentStates,
     }
 
     @Override
-    public PaymentStates convertToEntityAttribute(String dbData) {
+    public PaymentStatus convertToEntityAttribute(String dbData) {
         if (dbData == null) {
             return null;
         }
         try {
-            return PaymentStates.valueOf(dbData);
+            return PaymentStatus.valueOf(dbData);
         } catch (IllegalArgumentException e) {
             return null;
         }
