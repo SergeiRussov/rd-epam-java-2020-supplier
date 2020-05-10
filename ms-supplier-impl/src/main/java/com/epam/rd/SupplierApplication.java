@@ -1,5 +1,6 @@
 package com.epam.rd;
 
+import com.epam.rd.repository.PaymentRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

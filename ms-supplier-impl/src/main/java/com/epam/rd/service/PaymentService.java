@@ -12,8 +12,8 @@ public interface PaymentService {
     UUID create(UUID orderUUID);
 
     /**
-     * Обновление статуса оплаты заказа
+     * Помечает платёж как оплаченный
      * @param paymentUUID идентификатор оплаты
      */
-    void updateStatus(UUID paymentUUID);
+    void markAsPaid(UUID paymentUUID);
 }
