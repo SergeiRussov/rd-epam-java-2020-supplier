@@ -4,6 +4,7 @@ import com.epam.rd.domain.Order;
 import com.epam.rd.domain.Payment;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.PaymentRepository;
+import com.epam.rd.service.stub.StubData;
 import com.epam.rd.service.stub.StubForPaymentService;
 import com.epam.rd.util.PaymentStatus;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,7 @@ class PaymentServiceImplTest {
         stubOrder.setId(orderUUID);
         stubOrder.setAmount(111);
 
+        when(stubService.getData()).thenReturn(new StubData());
         when(orderRepository.findById(orderUUID)).thenReturn(Optional.of(stubOrder));
         when(stubService.getAcceptanceId()).thenReturn(acceptanceUUID);
 
