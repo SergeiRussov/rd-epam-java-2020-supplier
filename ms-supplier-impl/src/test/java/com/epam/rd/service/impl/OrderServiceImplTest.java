@@ -5,24 +5,23 @@ import com.epam.rd.domain.OrderStatus;
 import com.epam.rd.domain.Product;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.ProductRepository;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class OrderServiceImplTest {
     @Mock
     private OrderRepository orderRepository;
@@ -48,7 +47,7 @@ public class OrderServiceImplTest {
 
         verify(productRepository).findById(UUID.fromString("27c7f1a1-2cb9-45ab-a006-5978feb97177"));
         verify(orderRepository).save(any());
-        assertThat(uuid, equalTo(UUID.fromString("a2048f7c-0c7d-46c7-afe8-ed9ee7ffffff")));
+        assertEquals(uuid, UUID.fromString("a2048f7c-0c7d-46c7-afe8-ed9ee7ffffff"));
     }
 
     @Test
@@ -57,11 +56,10 @@ public class OrderServiceImplTest {
         testOrder.setStatus(OrderStatus.NEW);
         when(orderRepository.findById(any())).thenReturn(Optional.ofNullable(testOrder));
 
-        assertThat(testOrder.getStatus(), equalTo(OrderStatus.NEW));
+        assertEquals(testOrder.getStatus(), OrderStatus.NEW);
         orderService.markAsPaid(UUID.fromString("a2048f7c-0c7d-46c7-afe8-ed9ee7670f04"));
-        assertThat(testOrder.getStatus(), equalTo(OrderStatus.PAID));
+        assertEquals(testOrder.getStatus(), OrderStatus.PAID);
         verify(orderRepository).findById(any());
         verify(orderRepository).save(any());
     }
-
 }
