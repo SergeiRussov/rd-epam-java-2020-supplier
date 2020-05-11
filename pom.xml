@@ -34,7 +34,7 @@
         <liquibase.schema>supplier</liquibase.schema>
         <liquibase.changelogfile>resources/db.changelog-master.xml</liquibase.changelogfile>
         <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
-        <junit.version>4.13</junit.version>
+        <junit.version>5.6.2</junit.version>
         <mockito.version>1.10.19</mockito.version>
     </properties>
 
@@ -102,8 +102,8 @@
                 <version>${hibernate.ver}</version>
             </dependency>
             <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
                 <version>${junit.version}</version>
                 <scope>test</scope>
             </dependency>
