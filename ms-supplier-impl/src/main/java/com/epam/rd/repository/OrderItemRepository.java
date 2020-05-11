@@ -66,9 +66,10 @@ public class OrderItemRepository implements Repository<OrderItem> {
      * entity that already exists.
      *
      * @param orderItem to save.
+     * @return
      */
     @Override
-    public void save(OrderItem orderItem) {
+    public OrderItem save(OrderItem orderItem) {
         try {
             entityManager.getTransaction().begin();
             if (entityManager.find(Payment.class, orderItem.getId()) != null) {
@@ -83,6 +84,7 @@ public class OrderItemRepository implements Repository<OrderItem> {
         } catch (javax.persistence.PersistenceException e) {
             log.error(e.toString());
         }
+        return orderItem;
     }
 
     /**
