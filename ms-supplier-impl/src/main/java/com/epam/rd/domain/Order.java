@@ -1,6 +1,7 @@
 package com.epam.rd.domain;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,22 +16,24 @@ import java.util.UUID;
  */
 
 @Data
+@RequiredArgsConstructor
 @Entity
-@Table(name = "order")
+@Table(name = "supplier.order")
 @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class Order {
     @Id
     @GeneratedValue(generator = "uuid")
     private UUID id;
 
-    @OneToMany(mappedBy = "id")
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 
     @Column(name = "customer")
     private String customer;
 
     @Column(name = "status")
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private OrderStatus status;
 
     @Column(name = "amount")
     private long amount;
@@ -40,14 +43,4 @@ public class Order {
 
     @Column(name = "update_date")
     private ZonedDateTime updateDate;
-
-    public Order() {
-    }
-
-    public Order(String customer, String status, long amount, ZonedDateTime creationDate) {
-        this.customer = customer;
-        this.status = status;
-        this.amount = amount;
-        this.creationDate = creationDate;
-    }
 }
