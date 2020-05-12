@@ -37,8 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(UUID uuid, String name, String description, Long price) {
-        Product product = new Product();
-        product.setId(uuid);
+        Product product = find(uuid);
         product.setName(name);
         product.setDescription(description);
         product.setPrice(price);
