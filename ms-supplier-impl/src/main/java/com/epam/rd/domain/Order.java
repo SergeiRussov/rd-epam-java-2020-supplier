@@ -18,7 +18,7 @@ import java.util.UUID;
 @Data
 @RequiredArgsConstructor
 @Entity
-@Table(name = "supplier.order")
+@Table(name = "order")
 @GenericGenerator(name = "uuid", strategy = "org.hibernate.id.UUIDGenerator")
 public class Order {
     @Id
