@@ -68,7 +68,7 @@ public class ItemRepository implements Repository<Item> {
      * @param item to save.
      */
     @Override
-    public void save(Item item) {
+    public Item save(Item item) {
         try {
             entityManager.getTransaction().begin();
             if (entityManager.find(Payment.class, item.getId()) != null) {
@@ -83,6 +83,7 @@ public class ItemRepository implements Repository<Item> {
         } catch (PersistenceException e) {
             log.error(e.toString());
         }
+        return item;
     }
 
     /**

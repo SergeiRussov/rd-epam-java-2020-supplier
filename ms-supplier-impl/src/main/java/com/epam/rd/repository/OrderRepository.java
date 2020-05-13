@@ -45,7 +45,7 @@ public class OrderRepository implements Repository<Order> {
     }
 
     @Override
-    public void save(Order entity) {
+    public Order save(Order entity) {
         EntityTransaction tx = null;
 
         try {
@@ -59,6 +59,7 @@ public class OrderRepository implements Repository<Order> {
             log.info(e.getMessage());
         }
         log.info("=== SAVED entity={}", entity);
+        return entity;
     }
 
     @Override

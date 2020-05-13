@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
@@ -62,8 +63,11 @@ class ProductServiceImplTest {
         UUID uuid = UUID.fromString(uuidStr);
         String name = "ProductName";
         String description = "Product description";
+        Product product = new Product();
+        product.setId(uuid);
         Long price = 125487L;
-        Product product = productService.update(uuid, name, description, price);
+        when(productRepository.findById(uuid)).thenReturn(Optional.of(product));
+        product = productService.update(uuid, name, description, price);
         assertEquals(uuid, product.getId());
         assertEquals(name, product.getName());
         assertEquals(description, product.getDescription());
