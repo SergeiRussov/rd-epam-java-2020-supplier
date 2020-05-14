@@ -32,7 +32,7 @@ public interface Repository<T> {
      *
      * @param entity to save or update
      */
-    void save(T entity);
+    T save(T entity);
 
     /**
      * Deleting entity from repository.
