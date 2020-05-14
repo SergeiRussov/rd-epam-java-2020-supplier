@@ -28,7 +28,7 @@ public interface ItemService {
      * @param orderUUID заказ для которого создан товар
      * @return {@link Item}
      */
-    Item create(UUID productUUID, Order orderUUID);
+    Item create(UUID productUUID, UUID orderUUID);
 
     /**
      * Поиск всех товаров по идентификатору заказа
