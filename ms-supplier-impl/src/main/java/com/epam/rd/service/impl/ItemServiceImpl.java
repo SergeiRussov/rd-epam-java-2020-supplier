@@ -2,7 +2,6 @@ package com.epam.rd.service.impl;
 
 import com.epam.rd.domain.Item;
 import com.epam.rd.domain.Order;
-import com.epam.rd.domain.OrderItem;
 import com.epam.rd.domain.Product;
 import com.epam.rd.repository.*;
 import com.epam.rd.service.ItemService;
@@ -43,21 +42,21 @@ public class ItemServiceImpl implements ItemService {
             log.warn("Order with specified UUID is not presented in repository: {}", orderUUID);
             return null;
         }
-        Item newItem = new Item();
-        newItem.setProduct((Product) product.get());
-        newItem.setOrder((Order) order.get());
-        newItem.setUpdateDate(OffsetDateTime.now());
-        newItem.setCreationDate(OffsetDateTime.now());
-        return itemRepository.save(newItem);
+        Item item = new Item();
+        item.setProduct((Product) product.get());
+        item.setOrder((Order) order.get());
+        item.setUpdateDate(OffsetDateTime.now());
+        item.setCreationDate(OffsetDateTime.now());
+        return itemRepository.save(item);
     }
 
     @Override
     public List<Item> findOrderItems(UUID orderUUID) {
         Optional optOrder = orderRepository.findById(orderUUID);
-        if (optOrder.isEmpty()){
+        if (optOrder.isEmpty()) {
             return new ArrayList<Item>();
         }
         Order order = (Order) optOrder.get();
-        return new ArrayList<Item>();
+        return order.getItems();
     }
 }
