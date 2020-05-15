@@ -26,6 +26,9 @@ public class Order {
     private UUID id;
 
     @OneToMany(mappedBy = "order")
+    private List<Item> items;
+
+    @OneToMany(mappedBy = "order")
     private List<OrderItem> orderItems;
 
     @Column(name = "customer")
