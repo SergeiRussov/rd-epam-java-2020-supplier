@@ -9,7 +9,7 @@ import java.util.UUID;
  *
  * @author Aminev Ramil
  */
-public interface Repository<T> {
+public interface CommonRepository<T> {
     /**
      * Finding domain entity in repository using it's id.
      *

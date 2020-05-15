@@ -1,8 +1,6 @@
 package com.epam.rd.service;
 
 import com.epam.rd.domain.Item;
-import com.epam.rd.domain.Order;
-import com.epam.rd.domain.Product;
 
 import java.util.List;
 import java.util.UUID;

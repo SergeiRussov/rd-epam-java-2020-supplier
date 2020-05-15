@@ -9,12 +9,14 @@ import com.epam.rd.service.stub.StubData;
 import com.epam.rd.service.stub.StubForPaymentService;
 import com.epam.rd.util.PaymentStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
+@Service
 public class PaymentServiceImpl implements PaymentService {
 
     private OrderRepository orderRepository;

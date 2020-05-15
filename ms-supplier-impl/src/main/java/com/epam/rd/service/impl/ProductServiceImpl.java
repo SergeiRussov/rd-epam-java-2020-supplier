@@ -4,15 +4,19 @@ import com.epam.rd.domain.Product;
 import com.epam.rd.repository.PersistenceException;
 import com.epam.rd.repository.ProductRepository;
 import com.epam.rd.service.ProductService;
-import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@RequiredArgsConstructor
+@Service
 public class ProductServiceImpl implements ProductService {
-    private final ProductRepository productRepository;
+    private ProductRepository productRepository;
+
+    public ProductServiceImpl(){
+        productRepository = new ProductRepository();
+    }
 
     @Override
     public Product find(UUID uuid) {

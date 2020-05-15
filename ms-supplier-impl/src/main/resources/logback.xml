@@ -3,7 +3,7 @@
 
     <!-- Аппендер для логирования в файл-->
     <appender name="FILE-AUDIT" class="ch.qos.logback.core.FileAppender">
-        <file>\logs\supplier.log</file>
+        <file>logs/supplier.log</file>
         <append>false</append>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
             <Pattern>

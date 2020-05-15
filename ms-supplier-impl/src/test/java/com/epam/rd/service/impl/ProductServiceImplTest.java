@@ -2,12 +2,10 @@ package com.epam.rd.service.impl;
 
 import com.epam.rd.domain.Product;
 import com.epam.rd.repository.ProductRepository;
-import com.epam.rd.service.ProductService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
@@ -20,13 +18,10 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class ProductServiceImplTest {
     @Mock
-    private ProductRepository productRepository;
-    private ProductService productService;
+    private ProductRepository productRepository = new ProductRepository();
 
-    @BeforeEach
-    public void init() {
-        productService = new ProductServiceImpl(productRepository);
-    }
+    @InjectMocks
+    private ProductServiceImpl productService = new ProductServiceImpl();
 
     @Test
     public void findById() {

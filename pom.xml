@@ -24,6 +24,7 @@
         <hibernate.ver>5.4.14.Final</hibernate.ver>
         <junit.jupiter.ver>5.7.0-M1</junit.jupiter.ver>
         <mockito.ver>2.23.0</mockito.ver>
+        <spring.core.ver>5.2.6.RELEASE</spring.core.ver>
 
         <fileEnc>UTF-8</fileEnc>
         <!--  Liquibase Section   -->
@@ -112,6 +113,16 @@
                 <artifactId>mockito-junit-jupiter</artifactId>
                 <version>${mockito.ver}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${spring.core.ver}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.core.ver}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

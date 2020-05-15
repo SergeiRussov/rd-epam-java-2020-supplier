@@ -6,6 +6,7 @@ import com.epam.rd.domain.Product;
 import com.epam.rd.repository.*;
 import com.epam.rd.service.ItemService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -14,9 +15,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
+@Service
 public class ItemServiceImpl implements ItemService {
     private ItemRepository itemRepository = new ItemRepository();
-    private OrderItemRepository orderItemRepository = new OrderItemRepository();
     private ProductRepository productRepository = new ProductRepository();
     private OrderRepository orderRepository = new OrderRepository();
 
@@ -32,8 +33,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item create(UUID productUUID, UUID orderUUID) {
-        Optional product = productRepository.findById(productUUID);
-        Optional order = orderRepository.findById(orderUUID);
+        Optional<Product> product = productRepository.findById(productUUID);
+        Optional<Order> order = orderRepository.findById(orderUUID);
         if (product.isEmpty()) {
             log.warn("Product with specified UUID is not presented in repository: {}", productUUID);
             return null;
@@ -52,11 +53,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> findOrderItems(UUID orderUUID) {
-        Optional optOrder = orderRepository.findById(orderUUID);
+        Optional<Order> optOrder = orderRepository.findById(orderUUID);
         if (optOrder.isEmpty()) {
-            return new ArrayList<Item>();
+            return new ArrayList<>();
         }
-        Order order = (Order) optOrder.get();
+        Order order = optOrder.get();
         return order.getItems();
     }
 }
