@@ -9,6 +9,7 @@ import com.epam.rd.service.stub.StubData;
 import com.epam.rd.service.stub.StubForPaymentService;
 import com.epam.rd.util.PaymentStatus;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -23,10 +24,11 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentRepository paymentRepository;
     private StubForPaymentService stubService;
 
-    public PaymentServiceImpl() {
-        orderRepository = new OrderRepository();
-        paymentRepository = new PaymentRepository();
-        stubService = new StubForPaymentService();
+    @Autowired
+    public PaymentServiceImpl(OrderRepository orderRepo, PaymentRepository paymentRepo, StubForPaymentService stubService) {
+        this.orderRepository = orderRepo;
+        this.paymentRepository = paymentRepo;
+        this.stubService = stubService;
     }
 
     @Override

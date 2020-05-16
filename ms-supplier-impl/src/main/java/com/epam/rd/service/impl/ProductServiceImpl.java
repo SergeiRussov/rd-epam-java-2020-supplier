@@ -4,6 +4,7 @@ import com.epam.rd.domain.Product;
 import com.epam.rd.repository.PersistenceException;
 import com.epam.rd.repository.ProductRepository;
 import com.epam.rd.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -14,8 +15,9 @@ import java.util.UUID;
 public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
-    public ProductServiceImpl(){
-        productRepository = new ProductRepository();
+    @Autowired
+    public ProductServiceImpl(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -34,7 +36,7 @@ public class ProductServiceImpl implements ProductService {
         product.setName(name);
         product.setDescription(description);
         product.setPrice(price);
-        product.setCreationDate(OffsetDateTime.now() );
+        product.setCreationDate(OffsetDateTime.now());
         productRepository.save(product);
         return product;
     }

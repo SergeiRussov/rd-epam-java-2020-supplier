@@ -6,6 +6,7 @@ import com.epam.rd.domain.Product;
 import com.epam.rd.repository.*;
 import com.epam.rd.service.ItemService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -17,9 +18,16 @@ import java.util.UUID;
 @Slf4j
 @Service
 public class ItemServiceImpl implements ItemService {
-    private ItemRepository itemRepository = new ItemRepository();
-    private ProductRepository productRepository = new ProductRepository();
-    private OrderRepository orderRepository = new OrderRepository();
+    private ItemRepository itemRepository;
+    private ProductRepository productRepository;
+    private OrderRepository orderRepository;
+
+    @Autowired
+    public ItemServiceImpl(ItemRepository itemRepository, ProductRepository productRepository, OrderRepository orderRepository) {
+        this.itemRepository = itemRepository;
+        this.productRepository = productRepository;
+        this.orderRepository = orderRepository;
+    }
 
     @Override
     public Item find(UUID uuid) {
@@ -44,8 +52,8 @@ public class ItemServiceImpl implements ItemService {
             return null;
         }
         Item item = new Item();
-        item.setProduct((Product) product.get());
-        item.setOrder((Order) order.get());
+        item.setProduct(product.get());
+        item.setOrder(order.get());
         item.setUpdateDate(OffsetDateTime.now());
         item.setCreationDate(OffsetDateTime.now());
         return itemRepository.save(item);

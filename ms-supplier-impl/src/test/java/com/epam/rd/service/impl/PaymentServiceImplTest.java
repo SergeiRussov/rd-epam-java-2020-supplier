@@ -33,7 +33,7 @@ class PaymentServiceImplTest {
     private StubForPaymentService stubService = new StubForPaymentService();
 
     @InjectMocks
-    PaymentServiceImpl paymentService = new PaymentServiceImpl();
+    PaymentServiceImpl paymentService;
 
     @Test
     public void createTest() {

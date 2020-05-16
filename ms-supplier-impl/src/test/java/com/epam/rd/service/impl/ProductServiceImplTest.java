@@ -21,7 +21,7 @@ class ProductServiceImplTest {
     private ProductRepository productRepository = new ProductRepository();
 
     @InjectMocks
-    private ProductServiceImpl productService = new ProductServiceImpl();
+    private ProductServiceImpl productService;
 
     @Test
     public void findById() {
