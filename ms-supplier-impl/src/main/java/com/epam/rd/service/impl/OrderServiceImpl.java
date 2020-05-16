@@ -6,7 +6,7 @@ import com.epam.rd.domain.OrderStatus;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.ProductRepository;
 import com.epam.rd.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -14,17 +14,11 @@ import java.time.ZonedDateTime;
 import java.util.*;
 
 @Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    private OrderRepository orderRepository;
-    ProductRepository productRepository;
-    PaymentServiceImpl paymentService;
-
-    @Autowired
-    public OrderServiceImpl(OrderRepository orderRepository, ProductRepository productRepository, PaymentServiceImpl paymentService) {
-        this.orderRepository = orderRepository;
-        this.productRepository = productRepository;
-        this.paymentService = paymentService;
-    }
+    private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
+    private final PaymentServiceImpl paymentService;
 
     @Override
     public UUID create(Map<UUID, Integer> order) {

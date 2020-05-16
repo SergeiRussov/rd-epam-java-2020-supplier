@@ -8,8 +8,8 @@ import com.epam.rd.service.PaymentService;
 import com.epam.rd.service.stub.StubData;
 import com.epam.rd.service.stub.StubForPaymentService;
 import com.epam.rd.util.PaymentStatus;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -18,18 +18,12 @@ import java.util.UUID;
 
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 
-    private OrderRepository orderRepository;
-    private PaymentRepository paymentRepository;
-    private StubForPaymentService stubService;
-
-    @Autowired
-    public PaymentServiceImpl(OrderRepository orderRepo, PaymentRepository paymentRepo, StubForPaymentService stubService) {
-        this.orderRepository = orderRepo;
-        this.paymentRepository = paymentRepo;
-        this.stubService = stubService;
-    }
+    private final OrderRepository orderRepository;
+    private final PaymentRepository paymentRepository;
+    private final StubForPaymentService stubService;
 
     @Override
     public UUID create(UUID orderUUID) {

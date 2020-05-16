@@ -4,7 +4,7 @@ import com.epam.rd.domain.Product;
 import com.epam.rd.repository.PersistenceException;
 import com.epam.rd.repository.ProductRepository;
 import com.epam.rd.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
@@ -12,13 +12,9 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
-    private ProductRepository productRepository;
-
-    @Autowired
-    public ProductServiceImpl(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
+    private final ProductRepository productRepository;
 
     @Override
     public Product find(UUID uuid) {
