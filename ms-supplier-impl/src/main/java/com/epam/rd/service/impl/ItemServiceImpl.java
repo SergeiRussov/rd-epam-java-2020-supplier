@@ -5,7 +5,9 @@ import com.epam.rd.domain.Order;
 import com.epam.rd.domain.Product;
 import com.epam.rd.repository.*;
 import com.epam.rd.service.ItemService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
@@ -14,11 +16,12 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
+@Service
+@RequiredArgsConstructor
 public class ItemServiceImpl implements ItemService {
-    private ItemRepository itemRepository = new ItemRepository();
-    private OrderItemRepository orderItemRepository = new OrderItemRepository();
-    private ProductRepository productRepository = new ProductRepository();
-    private OrderRepository orderRepository = new OrderRepository();
+    private final ItemRepository itemRepository;
+    private final ProductRepository productRepository;
+    private final OrderRepository orderRepository;
 
     @Override
     public Item find(UUID uuid) {
@@ -32,8 +35,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item create(UUID productUUID, UUID orderUUID) {
-        Optional product = productRepository.findById(productUUID);
-        Optional order = orderRepository.findById(orderUUID);
+        Optional<Product> product = productRepository.findById(productUUID);
+        Optional<Order> order = orderRepository.findById(orderUUID);
         if (product.isEmpty()) {
             log.warn("Product with specified UUID is not presented in repository: {}", productUUID);
             return null;
@@ -43,8 +46,8 @@ public class ItemServiceImpl implements ItemService {
             return null;
         }
         Item item = new Item();
-        item.setProduct((Product) product.get());
-        item.setOrder((Order) order.get());
+        item.setProduct(product.get());
+        item.setOrder(order.get());
         item.setUpdateDate(OffsetDateTime.now());
         item.setCreationDate(OffsetDateTime.now());
         return itemRepository.save(item);
@@ -52,11 +55,11 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public List<Item> findOrderItems(UUID orderUUID) {
-        Optional optOrder = orderRepository.findById(orderUUID);
+        Optional<Order> optOrder = orderRepository.findById(orderUUID);
         if (optOrder.isEmpty()) {
-            return new ArrayList<Item>();
+            return new ArrayList<>();
         }
-        Order order = (Order) optOrder.get();
+        Order order = optOrder.get();
         return order.getItems();
     }
 }

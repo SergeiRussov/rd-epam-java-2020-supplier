@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
@@ -30,7 +30,7 @@ class ItemServiceImplTest {
     @Mock
     private ProductRepository productRepository;
     @InjectMocks
-    private ItemServiceImpl itemService = new ItemServiceImpl();
+    private ItemServiceImpl itemService;
 
     @Test
     void find() {
@@ -63,7 +63,7 @@ class ItemServiceImplTest {
         verify(productRepository).findById(any());
         verify(orderRepository).findById(any());
         verify(itemRepository).save(any());
-        assertEquals(item, null);
+        assertNull(item);
     }
 
     @Test
@@ -80,7 +80,7 @@ class ItemServiceImplTest {
         verify(productRepository).findById(any());
         verify(orderRepository).findById(any());
         verify(itemRepository, times(0)).save(any());
-        assertEquals(item, null);
+        assertNull(item);
     }
 
     @Test
@@ -97,19 +97,19 @@ class ItemServiceImplTest {
         verify(productRepository).findById(any());
         verify(orderRepository).findById(any());
         verify(itemRepository, times(0)).save(any());
-        assertEquals(item, null);
+        assertNull(item);
     }
 
     @Test
     void findOrderItemsWithNoOrderUUID() {
         Order order = new Order();
-        order.setItems(new ArrayList<Item>());
+        order.setItems(new ArrayList<>());
 
         when(orderRepository.findById(any())).thenReturn(Optional.of(order));
 
         List<Item> itemList = itemService.findOrderItems(UUID.randomUUID());
         verify(orderRepository).findById(any());
-        assertEquals(itemList.isEmpty(), true);
+        assertTrue(itemList.isEmpty());
     }
 
     @Test

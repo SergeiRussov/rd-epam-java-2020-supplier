@@ -2,6 +2,7 @@ package com.epam.rd.repository;
 
 import com.epam.rd.domain.Payment;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -18,7 +19,8 @@ import java.util.UUID;
  * @author Aminev Ramil
  */
 @Slf4j
-public class PaymentRepository implements Repository<Payment> {
+@Repository
+public class PaymentRepository implements CommonRepository<Payment> {
     private final EntityManager entityManager = Persistence
             .createEntityManagerFactory("supplier-pu")
             .createEntityManager();

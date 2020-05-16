@@ -5,11 +5,13 @@ import com.epam.rd.repository.PersistenceException;
 import com.epam.rd.repository.ProductRepository;
 import com.epam.rd.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
@@ -30,7 +32,7 @@ public class ProductServiceImpl implements ProductService {
         product.setName(name);
         product.setDescription(description);
         product.setPrice(price);
-        product.setCreationDate(OffsetDateTime.now() );
+        product.setCreationDate(OffsetDateTime.now());
         productRepository.save(product);
         return product;
     }

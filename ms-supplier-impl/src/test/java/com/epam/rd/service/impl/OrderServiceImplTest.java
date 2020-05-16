@@ -30,7 +30,7 @@ public class OrderServiceImplTest {
     @Mock
     private PaymentServiceImpl paymentService;
     @InjectMocks
-    private OrderServiceImpl orderService = new OrderServiceImpl();
+    private OrderServiceImpl orderService;
 
     @Test
     public void createReturnsUuid() {

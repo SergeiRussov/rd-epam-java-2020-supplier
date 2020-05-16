@@ -6,15 +6,19 @@ import com.epam.rd.domain.OrderStatus;
 import com.epam.rd.repository.OrderRepository;
 import com.epam.rd.repository.ProductRepository;
 import com.epam.rd.service.OrderService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 import java.time.OffsetDateTime;
 import java.time.ZonedDateTime;
 import java.util.*;
 
+@Service
+@RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    private OrderRepository orderRepository = new OrderRepository();
-    ProductRepository productRepository = new ProductRepository();
-    PaymentServiceImpl paymentService = new PaymentServiceImpl();
+    private final OrderRepository orderRepository;
+    private final ProductRepository productRepository;
+    private final PaymentServiceImpl paymentService;
 
     @Override
     public UUID create(Map<UUID, Integer> order) {
@@ -39,9 +43,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void markAsPaid(UUID uuid) {
-        Optional optOrder = orderRepository.findById(uuid);
+        Optional<Order> optOrder = orderRepository.findById(uuid);
         if (optOrder.isPresent()) {
-            Order order = (Order) optOrder.get();
+            Order order = optOrder.get();
             order.setStatus(OrderStatus.PAID);
             orderRepository.save(order);
         }

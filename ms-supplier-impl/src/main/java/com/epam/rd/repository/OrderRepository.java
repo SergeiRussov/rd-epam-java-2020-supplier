@@ -4,6 +4,7 @@ import com.epam.rd.domain.Order;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.HibernateException;
 import org.hibernate.Transaction;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -14,7 +15,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-public class OrderRepository implements Repository<Order> {
+@Repository
+public class OrderRepository implements CommonRepository<Order> {
     private static final EntityManager entityManager =
             Persistence.createEntityManagerFactory("supplier-pu").createEntityManager();
 
@@ -33,7 +35,7 @@ public class OrderRepository implements Repository<Order> {
     @Override
     public List<Order> findAll() {
         Transaction tx = null;
-        List<Order> orderList = new ArrayList<Order>();
+        List<Order> orderList = new ArrayList();
 
         try {
             orderList = entityManager.createQuery("FROM Order", Order.class).getResultList();

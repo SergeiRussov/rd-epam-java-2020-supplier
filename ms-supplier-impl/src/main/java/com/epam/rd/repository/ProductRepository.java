@@ -3,6 +3,7 @@ package com.epam.rd.repository;
 
 import com.epam.rd.domain.Product;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -14,7 +15,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Slf4j
-public class ProductRepository implements Repository<Product> {
+@Repository
+public class ProductRepository implements CommonRepository<Product> {
     private static final String EXCEPTION = "Произошло исключение при обработке команды ";
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("supplier-pu");
     private EntityManager manager = emf.createEntityManager();

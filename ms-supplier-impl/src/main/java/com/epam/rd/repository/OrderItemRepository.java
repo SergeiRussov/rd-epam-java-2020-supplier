@@ -3,6 +3,7 @@ package com.epam.rd.repository;
 import com.epam.rd.domain.OrderItem;
 import com.epam.rd.domain.Payment;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
@@ -19,7 +20,8 @@ import java.util.UUID;
  * @author Aminev Ramil
  */
 @Slf4j
-public class OrderItemRepository implements Repository<OrderItem> {
+@Repository
+public class OrderItemRepository implements CommonRepository<OrderItem> {
      private final EntityManager entityManager = Persistence
             .createEntityManagerFactory("supplier-pu")
             .createEntityManager();
